@@ -7,7 +7,7 @@ import 'package:temp_tracker/style/app_color.dart';
 import 'package:temp_tracker/style/fonts.dart';
 
 class SettingsScreen  extends  GetView<LoginController> {
-   SettingsScreen ({super.key});
+   const SettingsScreen ({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -17,17 +17,17 @@ class SettingsScreen  extends  GetView<LoginController> {
 
     return  Scaffold(
      
-      body: Padding(padding: EdgeInsets.only(left: 26,right: 26),
+      body: Padding(padding: const EdgeInsets.only(left: 26,right: 26),
         child: Column(
           children: [
          
-            SizedBox(height: 50),
-            Text('Settings Page' ,style: TextStyle(
+            const SizedBox(height: 50),
+            const Text('Settings Page' ,style: TextStyle(
                 fontSize: 30,
                 color: Colors.black,
                 fontFamily: 'Cairo',
                 fontWeight: FontWeight.bold
-            ),),                        SizedBox(height: 20),
+            ),),                        const SizedBox(height: 20),
         
            
           
@@ -40,7 +40,7 @@ class SettingsScreen  extends  GetView<LoginController> {
         
           },
            style: ElevatedButton.styleFrom(
-          primary:   AppColor.primaryColor,
+          backgroundColor: AppColor.primaryColor,
         ),
           child:
         
@@ -60,7 +60,7 @@ class SettingsScreen  extends  GetView<LoginController> {
         
           },
            style: ElevatedButton.styleFrom(
-          primary:   AppColor.primaryColor,
+          backgroundColor: AppColor.primaryColor,
         ),
           child:
         

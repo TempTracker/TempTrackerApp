@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:temp_tracker/controller/login_controller.dart';
 import 'package:temp_tracker/controller/temp_controller.dart';
 import 'package:temp_tracker/style/app_color.dart';
 import 'package:temp_tracker/style/fonts.dart';
@@ -20,21 +19,21 @@ class ChildTempListScreen extends GetView<TempController> {
           style: robotoHugeWhite,
         ),
         backgroundColor: AppColor.primaryColor,
-        iconTheme: IconThemeData(
+        iconTheme: const IconThemeData(
           color: Colors.white,
         ),
       ),
       body: SingleChildScrollView(
-        physics: BouncingScrollPhysics(),
-        padding: EdgeInsets.all(16),
+        physics: const BouncingScrollPhysics(),
+        padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
+            const Text(
               "Enter the desired date to view Deema's past high temperatures:",
               style: TextStyle(fontSize: 18),
             ),
-            SizedBox(height: 16),
+            const SizedBox(height: 16),
               Obx(() {
               return Row(
                 children: [
@@ -44,7 +43,7 @@ class ChildTempListScreen extends GetView<TempController> {
                         text: DateFormat('yyyy-MM-dd').format(controller.selectedDate.value),
                       ),
                       readOnly: true,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         labelText: 'Select Date',
                         border: OutlineInputBorder(),
                       ),
@@ -61,15 +60,15 @@ class ChildTempListScreen extends GetView<TempController> {
                       },
                     ),
                   ),
-                  SizedBox(width: 16),
+                  const SizedBox(width: 16),
                   ElevatedButton(
                     onPressed: () {
                     
                     },
                     style: ElevatedButton.styleFrom(
-                      primary: AppColor.primaryColor,
+                      backgroundColor: AppColor.primaryColor,
                     ),
-                    child: Text(
+                    child: const Text(
                       'Display Records',
                       style: TextStyle(fontSize: 16, color: Colors.white),
                     ),
@@ -77,27 +76,27 @@ class ChildTempListScreen extends GetView<TempController> {
                 ],
               );
             }),
-            SizedBox(height: 24),
+            const SizedBox(height: 24),
             Table(
               border: TableBorder.all(color: Colors.black),
-              children: [
+              children: const [
                 TableRow(
                   children: [
                     TableCell(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text('Date'),
                       ),
                     ),
                     TableCell(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text('Temperature'),
                       ),
                     ),
                     TableCell(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text('Condition'),
                       ),
                     ),
@@ -107,19 +106,19 @@ class ChildTempListScreen extends GetView<TempController> {
                   children: [
                     TableCell(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text('2023-01-01'),
                       ),
                     ),
                     TableCell(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text('38.5°C'),
                       ),
                     ),
                     TableCell(
                       child: Padding(
-                        padding: const EdgeInsets.all(8.0),
+                        padding: EdgeInsets.all(8.0),
                         child: Text('high temperature'),
                       ),
                     ),

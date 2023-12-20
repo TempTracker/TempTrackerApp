@@ -14,27 +14,21 @@ class CustomToast {
       messageText: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // SvgPicture.asset(
-          //   "assets/icons/info-circle.svg",
-          //   color: Colors.white,
-          // ),
+         
           const SizedBox(width: 16),
           Expanded(
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 4),
-                    child: Text(title ?? "المعذرة".tr, style: robotoMediumWhite),
-                  ),
-                  Text(
-                    message ?? "Add your error message here",
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(bottom: 4),
+                  child: Text(title ?? "Warning", style: robotoMediumWhite),
+                ),
+                Text(
+                  message ?? "Add your error message here",
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ],
             ),
           ),
         ],
@@ -60,21 +54,18 @@ class CustomToast {
           // ),
           const SizedBox(width: 16),
           Expanded(
-            child: Directionality(
-              textDirection: TextDirection.rtl,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Container(
-                    margin: const EdgeInsets.only(bottom: 4),
-                    child: Text("success".tr, style: robotoMediumWhite),
-                  ),
-                  Text(
-                    message ?? "Add your success message here",
-                    style: const TextStyle(color: Colors.white),
-                  ),
-                ],
-              ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  margin: const EdgeInsets.only(bottom: 4),
+                  child: Text("success".tr, style: robotoMediumWhite),
+                ),
+                Text(
+                  message ?? "Add your success message here",
+                  style: const TextStyle(color: Colors.white),
+                ),
+              ],
             ),
           ),
         ],

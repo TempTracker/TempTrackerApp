@@ -14,7 +14,7 @@ class CustomInput extends StatefulWidget {
   final bool obscureText;
   final TextInputType? keyboardType;
 
-  CustomInput({
+  CustomInput({super.key, 
     this.validate,
     required this.controller,
     required this.label,
@@ -43,7 +43,7 @@ class _CustomInputState extends State<CustomInput> {
           keyboardType: widget.keyboardType,
           readOnly: widget.disabled,
           obscureText: widget.obscureText && !isPasswordVisible,
-          style: TextStyle(fontSize: 16),
+          style: const TextStyle(fontSize: 16),
           maxLines: 1,
           controller: widget.controller,
           decoration: InputDecoration(

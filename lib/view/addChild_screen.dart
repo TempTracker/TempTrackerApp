@@ -2,23 +2,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:temp_tracker/controller/manageChild_controller.dart';
+import 'package:temp_tracker/controller/addChildren_controller.dart';
 import 'package:temp_tracker/style/app_color.dart';
 import 'package:temp_tracker/widgets/custom_input.dart';
 
 import '../../style/fonts.dart';
 
-class AddChildScreen extends GetView<ManageChildController> {
-  AddChildScreen({Key? key});
+class AddChildScreen extends GetView<AddChildController> {
+  const AddChildScreen({super.key});
    @override
   Widget build(BuildContext context) {
     return  Scaffold(
        appBar: AppBar(title: Text( 'Add Child', style: robotoHugeWhite,),
-       backgroundColor:  AppColor.primaryColor, iconTheme: IconThemeData(
+       backgroundColor:  AppColor.primaryColor, iconTheme: const IconThemeData(
     color: Colors.white,), 
        ),
         body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -34,28 +34,28 @@ class AddChildScreen extends GetView<ManageChildController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
 
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                     
                            CustomInput(
                   controller: controller.nameC, label:  'Child Name', hint: ''),
                   
                         
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                        
                              CustomInput(
-                  controller: controller.AgeC, label:  'Child Age', hint: ''),
+                  controller: controller.ageC, label:  'Child Age', hint: ''),
                   
                         
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                             CustomInput(
-                  controller: controller.EmgNameC, label:  'Emergency person Name', hint: ''),
+                  controller: controller.emgNameC, label:  'Emergency person Name', hint: ''),
                   
-                                                SizedBox(height: 16),
+                                                const SizedBox(height: 16),
 
                              CustomInput(
-                  controller: controller.EmgPhoneC, label:  'Emergency person Phone  ', hint: '', keyboardType: TextInputType.number,),
+                  controller: controller.emgPhoneC, label:  'Emergency person Phone  ', hint: '', keyboardType: TextInputType.number,),
                   
-                                                SizedBox(height: 16),
+                                                const SizedBox(height: 16),
 CustomInput(
   controller: controller.tempC,
   label: 'Alert when temp reaches (opt)',
@@ -70,7 +70,7 @@ CustomInput(
           'Temperature is higher than normal!',
           backgroundColor: Colors.red,
           colorText: Colors.white,
-          duration: Duration(seconds: 3),
+          duration: const Duration(seconds: 3),
         );
       }
     }
@@ -93,9 +93,10 @@ CustomInput(
   height: MediaQuery.of(context).size.height * 0.08,
   child: ElevatedButton(
     onPressed: () async {
+      controller.addChild();
     },
     style: ElevatedButton.styleFrom(
-      primary: AppColor.primaryColor,
+      backgroundColor: AppColor.primaryColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
@@ -103,15 +104,15 @@ CustomInput(
     child: Obx(
       () {
         return controller.isLoading.value
-            ? CircularProgressIndicator(color: Colors.white)
+            ? const CircularProgressIndicator(color: Colors.white)
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.save_rounded,
                     color: Colors.white,
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
                     'Save',
                     style: robotoMediumWhite
@@ -124,7 +125,7 @@ CustomInput(
 ),
 
           ),
-             SizedBox(height: 20),
+             const SizedBox(height: 20),
                       
               ],
             ),

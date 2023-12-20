@@ -21,50 +21,50 @@ class AppPages {
   static final routes = [
     GetPage(
       name: _Paths.LOGIN,
-      page: () =>  LoginScreen(),
+      page: () =>  const LoginScreen(),
     ),
     GetPage(
       name: _Paths.FRONTPAGE,
-      page: () =>  FrontPageScreen(),
+      page: () =>  const FrontPageScreen(),
     ),
      GetPage(
       name: _Paths.CREATEACCOUNT,
-      page: () =>  CreateAccountScreen(),
+      page: () =>  const CreateAccountScreen(),
     ),
      GetPage(
       name: _Paths.MAINPAGE,
-      page: () =>  MainPageScreen(),
+      page: () =>   MainPageScreen(),
     ),
       GetPage(
       name: _Paths.SETTINGS,
-      page: () =>  SettingsScreen(),
+      page: () =>  const SettingsScreen(),
     ),
       GetPage(
       name: _Paths.USERINFO,
-      page: () =>  UserInfoScreen(),
+      page: () =>  const UserInfoScreen(),
     ),
      GetPage(
       name: _Paths.CHILDRENLIST,
-      page: () =>  ChildrenListScreen(),
+      page: () =>  const ChildrenListScreen(),
     ),
 
      GetPage(
       name: _Paths.ADDCHILD,
-      page: () =>  AddChildScreen(),
+      page: () =>  const AddChildScreen(),
     ),
      GetPage(
       name: _Paths.CHILDINFO,
-      page: () =>  ChildInfoScreen(),
+      page: () =>  const ChildInfoScreen(),
     ),
 
      GetPage(
       name: _Paths.TEMPPAGE,
-      page: () =>  TempPageScreen(),
+      page: () =>  const TempPageScreen(),
     ),
 
       GetPage(
       name: _Paths.CHILDTEMPLIST,
-      page: () =>  ChildTempListScreen(),
+      page: () =>  const ChildTempListScreen(),
     ),
   ];
 }

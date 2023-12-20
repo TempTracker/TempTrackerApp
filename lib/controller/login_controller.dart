@@ -11,53 +11,87 @@ import 'package:temp_tracker/widgets/custom_toast.dart';
 
 
 class LoginController extends GetxController {
+   FirebaseAuth auth = FirebaseAuth.instance;
+     FirebaseFirestore firestore = FirebaseFirestore.instance;
+  LoginController({required this.sharedPreferences});
+
   TextEditingController emailC = TextEditingController();
   TextEditingController passC = TextEditingController();
+ final SharedPreferences sharedPreferences;
 
  var isLoading = false.obs;
 
 
-// Future<void> login() async {
-//   isLoading.value = true;
+Future<void> login() async {
+  isLoading.value = true;
 
-//   if (emailC.text.isNotEmpty && passC.text.isNotEmpty) {
-//     try {
-//       final credential = await auth.signInWithEmailAndPassword(
-//         email: emailC.text.trim(),
-//         password: passC.text,
-//       );
+  if (emailC.text.isNotEmpty && passC.text.isNotEmpty) {
+    try {
+      final credential = await auth.signInWithEmailAndPassword(
+        email: emailC.text.trim(),
+        password: passC.text,
+      );
+ sharedPreferences.setString('userId', auth.currentUser!.uid);
+         getUser() ;
+          
+          // Get the user's email and username from Firebase Authentication
+          String email = auth.currentUser!.email ?? '';
+          String username = auth.currentUser!.displayName ?? '';
+          
+          // Store the user's email andusername in SharedPreferences
+          sharedPreferences.setString('email', email);
+          sharedPreferences.setString('name', username);
 
    
-//       isLoading.value = false;
+      isLoading.value = false;
 
-//       // Assuming getUser and updateUser are asynchronous operations.
-//       await updateUser();
+   
 
-//       await Get.offNamed(Routes.MAINPAGE);
-//     } on FirebaseAuthException catch (e) {
-//       if (e.code == 'user-not-found') {
-//         CustomToast.errorToast("الحساب غير موجود".tr);
-//       } else if (e.code == 'wrong-password') {
-//         CustomToast.errorToast("كلمة المرور غير صحيحة".tr);
-//       } else {
-//         CustomToast.errorToast("${"Error_because".tr}${e.toString()}");
-//         print('the error $e');
-//       }
-//       isLoading.value = false;
-//     } catch (e) {
-//       CustomToast.errorToast("${"Error_because".tr}${e.toString()}");
-//       print('the error $e');
-//       isLoading.value = false;
-//     }
-//   } else {
-//     CustomToast.errorToast('please_complete_data'.tr);
-//     isLoading.value = false;
-//   }
-
-
-// }
+      await Get.offNamed(Routes.MAINPAGE);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        CustomToast.errorToast("Account not found");
+      } else if (e.code == 'wrong-password') {
+        CustomToast.errorToast("Wrong Password");
+      } else {
+        CustomToast.errorToast("${"Error_because".tr}${e.toString()}");
+        print('the error $e');
+      }
+      isLoading.value = false;
+    } catch (e) {
+      CustomToast.errorToast("${"Error_because".tr}${e.toString()}");
+      print('the error $e');
+      isLoading.value = false;
+    }
+  } else {
+    CustomToast.errorToast('Please complete all the fields');
+    isLoading.value = false;
+  }
 
 
+}
+
+
+
+  Future getUser() async {
+    String? phone;
+    String? userName;
+    String? email;
+    await firestore
+        .collection('user')
+        .doc(sharedPreferences.getString('userId'))
+        .get()
+        .then((data) {
+            userName = data['name'];
+      phone = data['phone'];
+    
+      email = data['email'];
+      sharedPreferences.setString('name', userName!);
+
+      sharedPreferences.setString('phone', phone!);
+        sharedPreferences.setString('email', email!);
+    });
+  }
 
 
 

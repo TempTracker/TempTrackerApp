@@ -1,13 +1,13 @@
 {
   "project_info": {
-    "project_number": "1081209632992",
-    "project_id": "temptracker-23fdf",
-    "storage_bucket": "temptracker-23fdf.appspot.com"
+    "project_number": "526463425358",
+    "project_id": "temptrackerapp-620a4",
+    "storage_bucket": "temptrackerapp-620a4.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1081209632992:android:e24ff8035ca2c062dff885",
+        "mobilesdk_app_id": "1:526463425358:android:cda31667e5fda59ab2dc1f",
         "android_client_info": {
           "package_name": "com.example.temp_tracker"
         }
@@ -15,7 +15,7 @@
       "oauth_client": [],
       "api_key": [
         {
-          "current_key": "AIzaSyDhqo3o_-sogychMl3W2bUKGGHrLoVKWPs"
+          "current_key": "AIzaSyBmzPGHFXvdKMgQdSsmmsnMQJFFs9ZLe1Q"
         }
       ],
       "services": {

@@ -15,8 +15,8 @@ class CustomButton extends StatelessWidget {
   final double? fontSize;
   final double? radius;
   final IconData? icon;
-  CustomButton(
-      {this.onPressed,
+  const CustomButton(
+      {super.key, this.onPressed,
       required this.buttonText,
       this.transparent = false,
       this.margin,
@@ -28,7 +28,7 @@ class CustomButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ButtonStyle _flatButtonStyle = TextButton.styleFrom(
+    final ButtonStyle flatButtonStyle = TextButton.styleFrom(
       backgroundColor: onPressed == null
           ? Theme.of(context).disabledColor
           : transparent!
@@ -44,24 +44,24 @@ class CustomButton extends StatelessWidget {
 
     return Center(
         child: SizedBox(
-            width: width != null ? width : Dimensions.WEB_MAX_WIDTH,
+            width: width ?? Dimensions.WEB_MAX_WIDTH,
             child: Padding(
-              padding: margin == null ? EdgeInsets.all(0) : margin!,
+              padding: margin == null ? const EdgeInsets.all(0) : margin!,
               child: TextButton(
                 onPressed: onPressed!,
-                style: _flatButtonStyle,
+                style: flatButtonStyle,
                 child:
                     Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                   icon != null
                       ? Padding(
-                          padding: EdgeInsets.only(
+                          padding: const EdgeInsets.only(
                               right: Dimensions.PADDING_SIZE_EXTRA_SMALL),
                           child: Icon(icon,
                               color: transparent!
                                   ? Theme.of(context).primaryColor
                                   : Theme.of(context).cardColor),
                         )
-                      : SizedBox(),
+                      : const SizedBox(),
                   Text(buttonText ?? '',
                       textAlign: TextAlign.center,
                       style:    robotoHugeWhite,),

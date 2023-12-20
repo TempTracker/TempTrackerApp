@@ -2,13 +2,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:temp_tracker/controller/login_controller.dart';
-import 'package:temp_tracker/routes/app_pages.dart';
 import 'package:temp_tracker/style/app_color.dart';
 import 'package:temp_tracker/style/fonts.dart';
 import 'package:temp_tracker/widgets/custom_input.dart';
 
 class LoginScreen  extends  GetView<LoginController> {
-   LoginScreen ({super.key});
+   const LoginScreen ({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,10 +17,10 @@ class LoginScreen  extends  GetView<LoginController> {
 
     return  Scaffold(
       appBar: AppBar(title: Text( 'Login', style: robotoHugeWhite,),
-       backgroundColor:  AppColor.primaryColor, iconTheme: IconThemeData(
+       backgroundColor:  AppColor.primaryColor, iconTheme: const IconThemeData(
     color: Colors.white,), 
        ),
-      body: Padding(padding: EdgeInsets.only(left: 26,right: 26),
+      body: Padding(padding: const EdgeInsets.only(left: 26,right: 26),
         child: SingleChildScrollView(
           child: Column(
             children: [
@@ -31,18 +30,18 @@ class LoginScreen  extends  GetView<LoginController> {
       //   height: size.height * 0.2,
       //   child: Image.asset(Images.Logo),
       // ),
-              SizedBox(height: 50),
-              Text('LOGIN' ,style: TextStyle(
+              const SizedBox(height: 50),
+              const Text('LOGIN' ,style: TextStyle(
                   fontSize: 30,
                   color: Colors.black,
                   fontFamily: 'Cairo',
                   fontWeight: FontWeight.bold
-              ),),                        SizedBox(height: 20),
+              ),),                        const SizedBox(height: 20),
     
                 CustomInput(
                   controller: controller.emailC, label:  'Email', hint: ''),
                   
-                                                SizedBox(height: 16),
+                                                const SizedBox(height: 16),
 
                           
                         
@@ -50,24 +49,23 @@ class LoginScreen  extends  GetView<LoginController> {
                     
                   controller: controller.passC, label:  'Password', hint: '',obscureText: true),
     
-                                    SizedBox(height:30),
+                                    const SizedBox(height:30),
       
           SizedBox(
                 width: double.infinity,
         height: size.height * 0.09,
             child: ElevatedButton(
             onPressed: ()  async{
- Get.toNamed(Routes.MAINPAGE);
-
+controller. login();
             },
              style: ElevatedButton.styleFrom(
-            primary:   AppColor.primaryColor,
+            backgroundColor: AppColor.primaryColor,
           ),
             child:Obx(
         () {
       return controller.isLoading.value
-          ? CircularProgressIndicator(color: Colors.white,)
-          :  Text('login'.tr ,style: robotoHugeWhite,);
+          ? const CircularProgressIndicator(color: Colors.white,)
+          :  Text('login',style: robotoHugeWhite,);
         },
       ),
     

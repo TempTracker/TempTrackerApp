@@ -18,11 +18,11 @@ class AlertsPageScreen extends GetView<AlertsController> {
       children:[ 
         Scaffold(
         body:  SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Column(
               children: [
                 Container(
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.15,
                     decoration: BoxDecoration(
@@ -33,7 +33,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 3,
                           blurRadius: 7,
-                          offset: Offset(0, 3),
+                          offset: const Offset(0, 3),
                         ),
                       ],
                     ),
@@ -54,7 +54,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                                 children: [
                                   Row(
                                     children: [
-                                      Text(
+                                      const Text(
                                         "High Temperature",
                                         style: TextStyle(
                                           fontSize: 25,
@@ -62,7 +62,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                       SizedBox(width: 60),
+                                       const SizedBox(width: 60),
                                       Text(
                                         "9:20 PM",
                                         style: robotoBlack,
@@ -88,12 +88,12 @@ class AlertsPageScreen extends GetView<AlertsController> {
                           child: ElevatedButton(
                             onPressed: () async {},
                             style: ElevatedButton.styleFrom(
-                              primary: AppColor.primaryColor,
+                              backgroundColor: AppColor.primaryColor,
                             ),
                             child: Obx(
                               () {
                                 return controller.isLoading.value
-                                    ? CircularProgressIndicator(
+                                    ? const CircularProgressIndicator(
                                         color: Colors.white,
                                       )
                                     : Text(
@@ -109,7 +109,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                   ),
                 ),
                   Container(
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.15,
                     decoration: BoxDecoration(
@@ -120,7 +120,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 3,
                           blurRadius: 7,
-                          offset: Offset(0, 3),
+                          offset: const Offset(0, 3),
                         ),
                       ],
                     ),
@@ -141,7 +141,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                                 children: [
                                   Row(
                                     children: [
-                                      Text(
+                                      const Text(
                                         "High Temperature",
                                         style: TextStyle(
                                           fontSize: 25,
@@ -149,7 +149,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                       SizedBox(width: 60),
+                                       const SizedBox(width: 60),
                                       Text(
                                         "9:25 PM",
                                         style: robotoBlack,
@@ -175,12 +175,12 @@ class AlertsPageScreen extends GetView<AlertsController> {
                           child: ElevatedButton(
                             onPressed: () async {},
                             style: ElevatedButton.styleFrom(
-                              primary: AppColor.primaryColor,
+                              backgroundColor: AppColor.primaryColor,
                             ),
                             child: Obx(
                               () {
                                 return controller.isLoading.value
-                                    ? CircularProgressIndicator(
+                                    ? const CircularProgressIndicator(
                                         color: Colors.white,
                                       )
                                     : Text(
@@ -198,7 +198,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                
 
                  Container(
-                  padding: EdgeInsets.all(15),
+                  padding: const EdgeInsets.all(15),
                   child: Container(
                     height: MediaQuery.of(context).size.height * 0.15,
                     decoration: BoxDecoration(
@@ -209,7 +209,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                           color: Colors.grey.withOpacity(0.5),
                           spreadRadius: 3,
                           blurRadius: 7,
-                          offset: Offset(0, 3),
+                          offset: const Offset(0, 3),
                         ),
                       ],
                     ),
@@ -230,7 +230,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                                 children: [
                                   Row(
                                     children: [
-                                      Text(
+                                      const Text(
                                         "High Temperature",
                                         style: TextStyle(
                                           fontSize: 25,
@@ -238,7 +238,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                       SizedBox(width: 60),
+                                       const SizedBox(width: 60),
                                       Text(
                                         "9:25 PM",
                                         style: robotoBlack,
@@ -264,12 +264,12 @@ class AlertsPageScreen extends GetView<AlertsController> {
                           child: ElevatedButton(
                             onPressed: () async {},
                             style: ElevatedButton.styleFrom(
-                              primary: AppColor.primaryColor,
+                              backgroundColor: AppColor.primaryColor,
                             ),
                             child: Obx(
                               () {
                                 return controller.isLoading.value
-                                    ? CircularProgressIndicator(
+                                    ? const CircularProgressIndicator(
                                         color: Colors.white,
                                       )
                                     : Text(
@@ -294,7 +294,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
     
          
       ),
-                        Positioned(bottom: 30,left:15, child:  Row(
+                        const Positioned(bottom: 30,left:15, child:  Row(
                           children: [
                             Icon(Icons.crisis_alert_rounded),
                                                         Text("If there is no response in the specified time,\n an alert will be sent to emergency person."),

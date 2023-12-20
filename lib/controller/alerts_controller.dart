@@ -1,13 +1,10 @@
 import 'dart:async';
 
 import 'package:get/get.dart';
-import 'dart:async';
-import 'package:get/get.dart';
-import 'package:get/get.dart';
 
 class AlertsController extends GetxController {
   late Timer _timer;
-  RxInt _timerDurationInMinutes = 10.obs; // Initial duration in minutes
+  final RxInt _timerDurationInMinutes = 10.obs; // Initial duration in minutes
 
   RxInt get timerDurationInMinutes => _timerDurationInMinutes;
 
@@ -18,7 +15,7 @@ class AlertsController extends GetxController {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(Duration(minutes: 1), (timer) {
+    _timer = Timer.periodic(const Duration(minutes: 1), (timer) {
       if (_timerDurationInMinutes.value > 0) {
         _timerDurationInMinutes.value--;
       } else {

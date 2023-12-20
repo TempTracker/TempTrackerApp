@@ -8,7 +8,7 @@ import 'package:temp_tracker/style/fonts.dart';
 import 'package:temp_tracker/style/images.dart';
 
 class FrontPageScreen  extends  GetView<LoginController> {
-   FrontPageScreen ({super.key});
+   const FrontPageScreen ({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -20,18 +20,18 @@ class FrontPageScreen  extends  GetView<LoginController> {
     
         body: Stack(
           children: [
-            Padding(padding: EdgeInsets.only(left: 26,right: 26),
+            Padding(padding: const EdgeInsets.only(left: 26,right: 26),
               child: SingleChildScrollView(
                 child: Column(
                   children: [
                     SizedBox(height: MediaQuery.sizeOf(context).height * 0.1,),
-                     Container(
+                     SizedBox(
               width: size.width * 1 , 
               height: size.height * 0.2,
               child: Image.asset(Images.logo),
             ),
-                    SizedBox(height: 50),
-                    Text('Temp Tracker'.tr ,style: TextStyle(
+                    const SizedBox(height: 50),
+                    Text('Temp Tracker'.tr ,style: const TextStyle(
                         fontSize: 30,
                         color: Colors.black,
                         fontFamily: 'Cairo',
@@ -39,7 +39,7 @@ class FrontPageScreen  extends  GetView<LoginController> {
                     ),),                      
     
                   
-                                          SizedBox(height:80),
+                                          const SizedBox(height:80),
         
                 SizedBox(
                       width: double.infinity,
@@ -49,7 +49,7 @@ class FrontPageScreen  extends  GetView<LoginController> {
         Get.toNamed(Routes.LOGIN);
                   },
                    style: ElevatedButton.styleFrom(
-                  primary:   AppColor.primaryColor,
+                  backgroundColor: AppColor.primaryColor,
                 ),
                   child:
         Text('login'.tr ,style: robotoHugeWhite,)
@@ -58,7 +58,7 @@ class FrontPageScreen  extends  GetView<LoginController> {
     
                 ),
                 ),
-      SizedBox(height: 20),
+      const SizedBox(height: 20),
                  SizedBox(
                       width: double.infinity,
               height: size.height * 0.09,
@@ -67,7 +67,7 @@ class FrontPageScreen  extends  GetView<LoginController> {
        Get.toNamed(Routes.CREATEACCOUNT);
                   },
                    style: ElevatedButton.styleFrom(
-                  primary:  AppColor.primaryColor,
+                  backgroundColor: AppColor.primaryColor,
                 ),
                   child:
         Text('Create Account'.tr ,style: robotoHugeWhite,)

@@ -35,11 +35,12 @@ class DefaultFirebaseOptions {
 
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyDhqo3o_-sogychMl3W2bUKGGHrLoVKWPs',
-    appId: '1:1081209632992:android:e24ff8035ca2c062dff885',
+    apiKey: 'AIzaSyBmzPGHFXvdKMgQdSsmmsnMQJFFs9ZLe1Q',
+    appId: '1:526463425358:android:cda31667e5fda59ab2dc1f',
+    databaseURL: "https://temptrackerapp-620a4-default-rtdb.firebaseio.com",
     messagingSenderId: '492798704115',
-    projectId: 'temptracker-23fdf',
-    storageBucket: 'temptracker-23fdf.appspot.com',
+    projectId: 'temptrackerapp-620a4',
+    storageBucket: 'temptrackerapp-620a4.appspot.com',
   );  
 
 }

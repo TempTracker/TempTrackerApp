@@ -2,23 +2,23 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:temp_tracker/controller/createAccount_controller.dart';
+import 'package:temp_tracker/controller/userInfo_controller.dart';
 import 'package:temp_tracker/style/app_color.dart';
 import 'package:temp_tracker/widgets/custom_input.dart';
 
 import '../../style/fonts.dart';
 
-class UserInfoScreen extends GetView<CreateAccountController> {
-  UserInfoScreen({Key? key});
+class UserInfoScreen extends GetView<UserInfoController> {
+  const UserInfoScreen({super.key});
    @override
   Widget build(BuildContext context) {
     return  Scaffold(
        appBar: AppBar(title: Text( 'User Information', style: robotoHugeWhite,),
-       backgroundColor:  AppColor.primaryColor, iconTheme: IconThemeData(
+       backgroundColor:  AppColor.primaryColor, iconTheme: const IconThemeData(
     color: Colors.white,), 
        ),
         body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -34,29 +34,29 @@ class UserInfoScreen extends GetView<CreateAccountController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
 
-                        SizedBox(height: 16),
-                    
+                        const SizedBox(height: 16),
+                       CustomInput(
+                  controller: controller.emailC, label:  'Email', hint: '', disabled: true),
+                  
+                                                const SizedBox(height: 16),
                            CustomInput(
                   controller: controller.nameC, label:  'Name', hint: ''),
                   
                         
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                        
                              CustomInput(
-                  controller: controller.nameC, label:  'Phone', hint: ''),
+                  controller: controller.phoneC, label:  'Phone', hint: '', keyboardType: TextInputType.number,),
                   
                         
-                        SizedBox(height: 16),
-                            CustomInput(
-                  controller: controller.emailC, label:  'Email', hint: ''),
-                  
-                                                SizedBox(height: 16),
+                        const SizedBox(height: 16),
+                         
 
                           
                         
-                    CustomInput(
+                  //   CustomInput(
                     
-                  controller: controller.passC, label:  'Password', hint: '',obscureText: true, ),
+                  // controller: controller.passC, label:  'Password', hint: '',obscureText: true, ),
     
                       ],
                     ),
@@ -71,9 +71,10 @@ class UserInfoScreen extends GetView<CreateAccountController> {
   height: MediaQuery.of(context).size.height * 0.08,
   child: ElevatedButton(
     onPressed: () async {
+      controller.updateUser() ;
     },
     style: ElevatedButton.styleFrom(
-      primary: AppColor.primaryColor,
+      backgroundColor: AppColor.primaryColor,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10.0),
       ),
@@ -81,15 +82,15 @@ class UserInfoScreen extends GetView<CreateAccountController> {
     child: Obx(
       () {
         return controller.isLoading.value
-            ? CircularProgressIndicator(color: Colors.white)
+            ? const CircularProgressIndicator(color: Colors.white)
             : Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Icon(
+                  const Icon(
                     Icons.save_rounded,
                     color: Colors.white,
                   ),
-                  SizedBox(width: 8),
+                  const SizedBox(width: 8),
                   Text(
                     'Save',
                     style: robotoMediumWhite
@@ -102,7 +103,7 @@ class UserInfoScreen extends GetView<CreateAccountController> {
 ),
 
           ),
-             SizedBox(height: 20),
+             const SizedBox(height: 20),
                       
               ],
             ),

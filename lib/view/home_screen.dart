@@ -12,13 +12,15 @@ import 'package:temp_tracker/view/tempPage_screen.dart';
 
 class MainPageScreen extends GetView<HomeController> {
   final List<Widget> _pages = [
-   SettingsScreen(),
-   ChildrenList2Screen(),
-   TempPageScreen(),
- AlertsPageScreen(),
+   const SettingsScreen(),
+   const ChildrenList2Screen(),
+   const TempPageScreen(),
+ const AlertsPageScreen(),
   ];
 
   final RxInt _selectedIndex = 0.obs;
+
+   MainPageScreen({super.key});
 
          
 
@@ -29,7 +31,7 @@ class MainPageScreen extends GetView<HomeController> {
     return Scaffold(
       
      appBar: AppBar(title: Padding(
-      padding: EdgeInsets.all(20),
+      padding: const EdgeInsets.all(20),
       child: Text( 'Wellcome Sara', style: robotoHugeWhite,)),
        backgroundColor: AppColor.primaryColor,   automaticallyImplyLeading: false,), 
        

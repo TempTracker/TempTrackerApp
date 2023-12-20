@@ -10,16 +10,16 @@ import 'package:temp_tracker/widgets/custom_input.dart';
 import '../../style/fonts.dart';
 
 class CreateAccountScreen extends GetView<CreateAccountController> {
-  CreateAccountScreen({Key? key});
+  const CreateAccountScreen({super.key});
    @override
   Widget build(BuildContext context) {
     return  Scaffold(
        appBar: AppBar(title: Text( 'Create Account', style: robotoHugeWhite,),
-       backgroundColor:  AppColor.primaryColor, iconTheme: IconThemeData(
+       backgroundColor:  AppColor.primaryColor, iconTheme: const IconThemeData(
     color: Colors.white,), 
        ),
         body: SingleChildScrollView(
-          physics: BouncingScrollPhysics(),
+          physics: const BouncingScrollPhysics(),
           child: Padding(
             padding: const EdgeInsets.all(20.0),
             child: Column(
@@ -34,25 +34,25 @@ class CreateAccountScreen extends GetView<CreateAccountController> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                          Text('Please complete all the information to create an account', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),),
+                          const Text('Please complete all the information to create an account', style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold,),),
 
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                     
                            CustomInput(
                   controller: controller.nameC, label:  'Name', hint: ''),
                   
                         
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                        
                              CustomInput(
-                  controller: controller.nameC, label:  'Phone', hint: ''),
+                  controller: controller.phoneC, label:  'Phone', hint: ''),
                   
                         
-                        SizedBox(height: 16),
+                        const SizedBox(height: 16),
                             CustomInput(
                   controller: controller.emailC, label:  'Email', hint: ''),
                   
-                                                SizedBox(height: 16),
+                                                const SizedBox(height: 16),
 
                           
                         
@@ -73,9 +73,10 @@ class CreateAccountScreen extends GetView<CreateAccountController> {
               height:MediaQuery.of(context).size.height * 0.08 ,
               child: ElevatedButton(
                 onPressed: () async{
+                   controller. createUser();
                 },
                 style: ElevatedButton.styleFrom(
-                  primary: AppColor.primaryColor,
+                  backgroundColor: AppColor.primaryColor,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(10.0), 
                   ),
@@ -83,8 +84,8 @@ class CreateAccountScreen extends GetView<CreateAccountController> {
                 child: Obx(
               () {
                 return controller.isLoading.value
-                    ? CircularProgressIndicator(color: Colors.white,)
-                    :   Text(
+                    ? const CircularProgressIndicator(color: Colors.white,)
+                    :   const Text(
                 'Create Account',
                   style: TextStyle(fontSize: 16, color: Colors.white, fontWeight: FontWeight.w700),
                 );
@@ -93,7 +94,7 @@ class CreateAccountScreen extends GetView<CreateAccountController> {
               ),
             ),
           ),
-             SizedBox(height: 20),
+             const SizedBox(height: 20),
                           GestureDetector(child: Text('Do you already have an account?' ,style:robotoBold ,) ,onTap: () {
                          Get.toNamed( Routes.LOGIN);
                           },),
