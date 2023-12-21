@@ -11,7 +11,7 @@ class ChildrenList2Screen extends GetView<ChildrenListController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       
+
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
@@ -24,14 +24,13 @@ class ChildrenList2Screen extends GetView<ChildrenListController> {
                   var data = snapshot.data!.snapshot.value;
                   if (data != null) {
      List<String> ids = List<String>.from(data.keys);
-
                     return ListView.builder(
                       shrinkWrap: true,
                       itemCount: ids.length,
                       itemBuilder: (context, index) {
                         var id = ids[index];
                         var childNum = index +1;
-   return 
+   return
                 Container(
                
                   child: Padding(
@@ -41,7 +40,7 @@ class ChildrenList2Screen extends GetView<ChildrenListController> {
                               ),
                               child: GestureDetector(
                                 onTap: () {
-                                  Get.toNamed(Routes.CHILDTEMPLIST);
+                                  Get.toNamed(Routes.CHILDTEMPLIST, arguments: id);
                                 },
                                 child: Container(
                                   height: 80,

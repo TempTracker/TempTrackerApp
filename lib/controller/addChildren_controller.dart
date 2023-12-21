@@ -18,6 +18,7 @@ class AddChildController extends GetxController {
   TextEditingController emgNameC = TextEditingController();
   TextEditingController emgPhoneC = TextEditingController();
   TextEditingController tempC = TextEditingController();
+
  var isLoading = false.obs;
 
 
@@ -62,4 +63,7 @@ void addChild() {
       CustomToast.errorToast('Temperature is higher than normal!');
    }
 }
+
+
+
 }

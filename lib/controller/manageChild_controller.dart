@@ -20,15 +20,15 @@ fetchChildren() ;
   DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
 
   TextEditingController nameC = TextEditingController();
-    TextEditingController ageC = TextEditingController();
+  TextEditingController ageC = TextEditingController();
   TextEditingController emgNameC = TextEditingController();
   TextEditingController emgPhoneC = TextEditingController();
   TextEditingController tempC = TextEditingController();
- var isLoading = false.obs;
+  var isLoading = false.obs;
 
 
  void Clear(){
-   nameC.clear();
+      nameC.clear();
       ageC.clear();
       emgNameC.clear();
       emgPhoneC.clear();
@@ -85,8 +85,8 @@ void updateChild() {
     nameC.text = child['name'];
     ageC.text = child['age'];
     emgNameC.text = child['emergName'];
-     emgPhoneC.text = child['emergPhone'];
-          tempC.text = child['temperature'];
+    emgPhoneC.text = child['emergPhone'];
+    tempC.text = child['temperature'];
 
 }
 

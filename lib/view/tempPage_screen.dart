@@ -94,7 +94,7 @@ List<String> ids = List<String>.from(data.keys);
                   }
                 }
 
-                return CircularProgressIndicator(); // Show a loading indicator or error message
+                return Center(child: CircularProgressIndicator()); // Show a loading indicator or error message
               },
             ),
           ],

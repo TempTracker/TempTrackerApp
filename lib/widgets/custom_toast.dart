@@ -48,10 +48,7 @@ class CustomToast {
       messageText: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          // SvgPicture.asset(
-          //   "assets/icons/success-circle.svg",
-          //   color: Colors.white,
-          // ),
+        
           const SizedBox(width: 16),
           Expanded(
             child: Column(
