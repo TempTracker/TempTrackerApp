@@ -5,9 +5,9 @@ import 'package:flutter/foundation.dart'
 
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
-    // if (kIsWeb) {
-    //   return web;
-    // }
+    if (kIsWeb) {
+      return web;
+    }
     switch (defaultTargetPlatform) {
       case TargetPlatform.android:
         return android;
@@ -32,7 +32,14 @@ class DefaultFirebaseOptions {
     }
   }
 
-
+  static const FirebaseOptions web = FirebaseOptions(
+   apiKey: 'AIzaSyBmzPGHFXvdKMgQdSsmmsnMQJFFs9ZLe1Q',
+    appId: '1:526463425358:android:cda31667e5fda59ab2dc1f',
+    databaseURL: "https://temptrackerapp-620a4-default-rtdb.firebaseio.com",
+    messagingSenderId: '492798704115',
+    projectId: 'temptrackerapp-620a4',
+    storageBucket: 'temptrackerapp-620a4.appspot.com',
+  );
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBmzPGHFXvdKMgQdSsmmsnMQJFFs9ZLe1Q',

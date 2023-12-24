@@ -4,6 +4,7 @@ import 'package:intl/intl.dart';
 import 'package:temp_tracker/controller/temp_controller.dart';
 import 'package:temp_tracker/style/app_color.dart';
 import 'package:temp_tracker/style/fonts.dart';
+import 'package:temp_tracker/style/images.dart';
 
 class ChildTempListScreen extends GetView<TempController> {
   const ChildTempListScreen({Key? key}) : super(key: key);
@@ -53,7 +54,7 @@ class ChildTempListScreen extends GetView<TempController> {
                             context: context,
                             initialDate: controller.selectedDate.value,
                             firstDate: DateTime(2000),
-                            lastDate: DateTime(2101),
+                            lastDate: DateTime.now(),
                           );
                           if (pickedDate != null && pickedDate != controller.selectedDate.value) {
                             controller.updateSelectedDate(pickedDate);
@@ -79,26 +80,32 @@ class ChildTempListScreen extends GetView<TempController> {
               },
             ),
             const SizedBox(height: 24),
-            Obx(() => Table(
-              border: TableBorder.all(color: Colors.black),
-              children: [
-                TableRow(
+         Obx(() {
+             if (controller.childrenTemps.isEmpty) {
+                return Image.asset(Images.nodata);
+              } else {
+                return Table(
+                  border: TableBorder.all(color: Colors.black),
                   children: [
-                    TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('Date'))),
-                    TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('Temperature'))),
-                    TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('Condition'))),
+                    TableRow(
+                      children: [
+                        TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('Time'))),
+                        TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('Temperature'))),
+                        TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('Condition'))),
+                      ],
+                    ),
+                    for (var record in controller.childrenTemps)
+                      TableRow(
+                        children: [
+                          TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text(record['time']))),
+                          TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('${record['temperature']}°C'))),
+                          TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text(record['condition']))),
+                        ],
+                      ),
                   ],
-                ),
-                for (var record in controller.childrenTemps)
-                  TableRow(
-                    children: [
-                      TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text(record['Date']))),
-                      TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('${record['Temp']}°C'))),
-                      TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text(record['Condition']))),
-                    ],
-                  ),
-              ],
-            )),
+                );
+              }
+            }),
           ],
         ),
       ),

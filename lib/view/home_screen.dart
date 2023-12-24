@@ -14,7 +14,7 @@ class MainPageScreen extends GetView<HomeController> {
   final List<Widget> _pages = [
    const SettingsScreen(),
    const ChildrenList2Screen(),
-   const TempPageScreen(),
+    TempPageScreen(),
  const AlertsPageScreen(),
   ];
 

@@ -43,7 +43,7 @@ class AddChildScreen extends GetView<AddChildController> {
                         const SizedBox(height: 16),
                        
                              CustomInput(
-                  controller: controller.ageC, label:  'Child Age', hint: ''),
+                  controller: controller.ageC, label:  'Child Age', hint: '', keyboardType: TextInputType.number,),
                   
                         
                         const SizedBox(height: 16),

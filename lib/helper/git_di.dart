@@ -5,6 +5,7 @@ import 'package:temp_tracker/controller/addChildren_controller.dart';
 import 'package:temp_tracker/controller/alerts_controller.dart';
 import 'package:temp_tracker/controller/childrenList_controller.dart';
 import 'package:temp_tracker/controller/createAccount_controller.dart';
+import 'package:temp_tracker/controller/forgetPassword_controller.dart';
 import 'package:temp_tracker/controller/home_controller.dart';
 import 'package:temp_tracker/controller/manageChild_controller.dart';
 import 'package:temp_tracker/controller/temp_controller.dart';
@@ -30,6 +31,7 @@ Future init() async {
   Get.lazyPut(() => UserInfoController(), fenix: true);
     Get.lazyPut(() => ChildrenListController(), fenix: true);
     Get.lazyPut(() => AddChildController(), fenix: true);
+    Get.lazyPut(() => ForgetPasswordController(), fenix: true);
 
 
 

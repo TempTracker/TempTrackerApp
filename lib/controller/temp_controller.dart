@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,7 @@ class TempController extends GetxController {
   void onInit() async {
     super.onInit();
 fetchChildrenTemps();
-fetchChildrenDate() ;
+fetchChildrenData() ;
   }
   var name = ''.obs; 
   Rx<DateTime> selectedDate = DateTime.now().obs;
@@ -25,7 +27,7 @@ fetchChildrenDate() ;
   }
 
 
-  void fetchChildrenDate() async {
+  void fetchChildrenData() async {
           databaseReference = FirebaseDatabase.instance.ref().child('Children');
  DataSnapshot snapshot = await databaseReference.child(childID).get();
  
@@ -36,47 +38,11 @@ fetchChildrenDate() ;
 }
 
 
-//  Future<void> fetchChildrenTemps() async {
-//     try {
-//       // Reference to the Firestore collection
-//       CollectionReference highTempsCollection =
-//           FirebaseFirestore.instance.collection('HighTemps');
-
-//       // Get the document with the given child ID
-//       DocumentSnapshot childDocument =
-//           await highTempsCollection.doc(childID).get();
-
-//       if (childDocument.exists) {
-//         // Assuming there's a subcollection named with the date
-//         // You might need to adjust this based on your Firestore structure
-//            String formattedDate =
-//             DateFormat('dd-MM-yyyy').format(selectedDate.value);
-//         CollectionReference dateCollection =
-//             childDocument.reference.collection(formattedDate);
-
-//         // Get the document within the date subcollection
-//         QuerySnapshot dateQuery = await dateCollection.get();
-
-//         // Assuming you want to get the first document (you might need to adjust this)
-//         if (dateQuery.docs.isNotEmpty) {
-//           var firstDocument = dateQuery.docs.first;
-
-//           // Assuming 'name' is a field within the document
-//           name.value = firstDocument['Condition'];
-//         } else {
-//           print('No documents found for the specified date.');
-//         }
-//       } else {
-//         print('Document with ID $childID does not exist in the collection.');
-//       }
-//     } catch (error) {
-//       print('Error fetching children: $error');
-//     }
-//   }
-
 
 Future<void> fetchChildrenTemps() async {
+
   try {
+
     // Reference to the Firestore collection
     CollectionReference highTempsCollection =
         FirebaseFirestore.instance.collection('HighTemps');
@@ -86,8 +52,8 @@ Future<void> fetchChildrenTemps() async {
         await highTempsCollection.doc(childID).get();
 
     if (childDocument.exists) {
-      // Assuming there's a subcollection named with the date
-      // You might need to adjust this based on your Firestore structure
+
+  
       String formattedDate =
           DateFormat('dd-MM-yyyy').format(selectedDate.value);
       CollectionReference dateCollection =
@@ -101,9 +67,9 @@ Future<void> fetchChildrenTemps() async {
         // Extract data from each document and store in the list
         List<Map<String, dynamic>> records = dateQuery.docs
             .map((doc) => {
-                  'Date': doc['Date'],
-                  'Temp': doc['Temp'],
-                  'Condition': doc['Condition'],
+                  'time': doc['time'],
+                  'temperature': doc['temperature'],
+                  'condition': doc['condition'],
                 })
             .toList();
 
@@ -115,12 +81,14 @@ Future<void> fetchChildrenTemps() async {
         childrenTemps.assignAll([]);
       }
     } else {
+
       print('Document with ID $childID does not exist in the collection.');
     }
   } catch (error) {
+
     print('Error fetching children: $error');
   }
+
 }
-
-
+ 
 }

@@ -16,6 +16,7 @@ static const ADDCHILD = _Paths.ADDCHILD;
 static const CHILDINFO = _Paths.CHILDINFO;
 static const TEMPPAGE = _Paths.TEMPPAGE;
 static const CHILDTEMPLIST = _Paths.CHILDTEMPLIST;
+static const FORGETPASSWORD = _Paths.FORGETPASSWORD;
 
 }
 
@@ -32,5 +33,6 @@ abstract class _Paths {
         static const TEMPPAGE = '/TEMPPAGE';
 
         static const CHILDTEMPLIST = '/CHILDTEMPLIST';
+        static const FORGETPASSWORD = '/FORGETPASSWORD';
 
 }

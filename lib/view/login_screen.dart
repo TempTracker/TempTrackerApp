@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:temp_tracker/controller/login_controller.dart';
+import 'package:temp_tracker/routes/app_pages.dart';
 import 'package:temp_tracker/style/app_color.dart';
 import 'package:temp_tracker/style/fonts.dart';
 import 'package:temp_tracker/widgets/custom_input.dart';
@@ -69,10 +70,13 @@ controller. login();
         },
       ),
     
+          ), 
           ),
-          ),
-    
-           
+    TextButton(onPressed: (){
+
+Get.toNamed(Routes.FORGETPASSWORD);
+
+    }, child: Text("Forget your password?"))
     
             ],
           ),

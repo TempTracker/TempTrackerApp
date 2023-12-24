@@ -5,6 +5,7 @@ import 'package:temp_tracker/view/childInfo_screen.dart';
 import 'package:temp_tracker/view/childTempList_screen.dart';
 import 'package:temp_tracker/view/childrenList_screen.dart';
 import 'package:temp_tracker/view/createAccount_screen.dart';
+import 'package:temp_tracker/view/forgetPassword_screen.dart';
 import 'package:temp_tracker/view/frontPage_screen.dart';
 import 'package:temp_tracker/view/home_screen.dart';
 import 'package:temp_tracker/view/login_screen.dart';
@@ -59,12 +60,18 @@ class AppPages {
 
      GetPage(
       name: _Paths.TEMPPAGE,
-      page: () =>  const TempPageScreen(),
+      page: () =>   TempPageScreen(),
     ),
 
       GetPage(
       name: _Paths.CHILDTEMPLIST,
       page: () =>  const ChildTempListScreen(),
+    ),
+
+
+    GetPage(
+      name: _Paths.FORGETPASSWORD,
+      page: () =>  const ForgetPasswordScreen(),
     ),
   ];
 }

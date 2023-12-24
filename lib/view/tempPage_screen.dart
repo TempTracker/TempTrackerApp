@@ -1,14 +1,16 @@
+import 'dart:async';
+
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:temp_tracker/controller/home_controller.dart';
 
-import 'package:temp_tracker/controller/login_controller.dart';
 import 'package:temp_tracker/style/fonts.dart';
 import 'package:temp_tracker/style/images.dart';
 
-class TempPageScreen extends GetView<LoginController> {
-  const TempPageScreen({Key? key}) : super(key: key);
-
+class TempPageScreen extends GetView<HomeController> {
+  bool isStoringData = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,21 +18,31 @@ class TempPageScreen extends GetView<LoginController> {
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
-            StreamBuilder(
-              // ignore: deprecated_member_use
-              stream: FirebaseDatabase.instance.reference().child("Children").onValue,
-              builder: (context, AsyncSnapshot snapshot) {
-                if (snapshot.hasData) {
-                  var data = snapshot.data!.snapshot.value;
-                  if (data != null) {
-List<String> ids = List<String>.from(data.keys);
+         StreamBuilder(
+  stream: FirebaseDatabase.instance.reference().child("Children").onValue,
+  builder: (context, AsyncSnapshot snapshot) {
+    if (snapshot.hasData) {
+      var data = snapshot.data!.snapshot.value;
+      if (data != null) {
+        List<String> ids = List<String>.from(data.keys);
 
-                    return ListView.builder(
-                      shrinkWrap: true,
-                      itemCount: ids.length,
-                      itemBuilder: (context, index) {
-                        var id = ids[index];
-   return     Container(
+        return ListView.builder(
+          shrinkWrap: true,
+          itemCount: ids.length,
+          itemBuilder: (context, index) {
+            var id = ids[index];
+
+  //           // Extract temperature value and convert it to a double
+            double temperature = double.tryParse(data[id]["temperature"] ?? "0.0") ?? 0.0;
+
+            // Determine temperature status
+            String temperatureStatus = (temperature > 37)
+                ? "High Temperature"
+                : "Normal";
+   String imagePath = (temperature > 37)
+                ? Images.tempgif
+                : Images.normalTemp;
+            return Container(
               padding: const EdgeInsets.all(15),
               child: Container(
                 height: MediaQuery.of(context).size.height * 0.15,
@@ -61,19 +73,23 @@ List<String> ids = List<String>.from(data.keys);
                               "${data[id]["name"]} current temperature:",
                               style: robotoHuge,
                             ),
-                             Text(
-                              " ${ data[id]["temperature"]} °C",
-                              style: const TextStyle(
+                            Text(
+                              " ${temperature} °C",
+                              style: TextStyle(
                                 fontSize: 40,
-                                color: Colors.red,
+                                color: (temperature > 37)
+                                    ? Colors.red
+                                    : Colors.black, // Adjust color based on condition
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
-                            const Text(
-                              "High Temperature",
+                            Text(
+                              temperatureStatus,
                               style: TextStyle(
                                 fontSize: 25,
-                                color: Colors.red,
+                                color: (temperature > 37)
+                                    ? Colors.red
+                                    : Colors.black, // Adjust color based on condition
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
@@ -82,24 +98,31 @@ List<String> ids = List<String>.from(data.keys);
                       ),
                       Padding(
                         padding: const EdgeInsets.only(top: 30, left: 50),
-                        child: Image.asset(Images.tempgif,),
+                        child: Image.asset(imagePath),
                       ),
                     ],
                   ),
                 ),
               ),
             );
-                      },
-                    );
-                  }
-                }
+          },
+        );
+      }
+        }
+      else {
+          return Center(child: Text("No data available."));
+        
+      
+    }
 
-                return Center(child: CircularProgressIndicator()); // Show a loading indicator or error message
-              },
-            ),
+    return Center(child: CircularProgressIndicator()); // Show a loading indicator or error message
+  },
+),
+
           ],
         ),
       ),
     );
   }
+
 }
