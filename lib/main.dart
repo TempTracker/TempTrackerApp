@@ -17,9 +17,9 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
  //await initializeFirebase();
-   //  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-   await initializeService();
+  // await initializeService();
 
   await di.init();
 
@@ -48,8 +48,10 @@ Future<void> initializeService() async {
   await service.configure(
     iosConfiguration: IosConfiguration(),
     androidConfiguration: AndroidConfiguration(
+      autoStart: true,
+notificationChannelId: "temptracker",
       autoStartOnBoot: true,
-      onStart: _onStart,  // Make sure _onStart is a top-level or static function
+      onStart: _onStart,  
       isForegroundMode: true,
     ),
   );
@@ -95,7 +97,7 @@ Future<void> fetchChildrenData() async {
 }
  void sendLocalNotification() async {
   const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    'your_channel_id',
+    'temptracker',
     'Your Channel Name',
     description: 'Your Channel Description',
     importance: Importance.high,
@@ -111,7 +113,7 @@ Future<void> fetchChildrenData() async {
 
   const AndroidNotificationDetails androidNotificationDetails =
       AndroidNotificationDetails(
-    'your_channel_id',
+    'temptracker',
     'Your Channel Name',
     importance: Importance.high,
   );
@@ -136,7 +138,7 @@ Future<void> initializeLocalNotifications() async {
       InitializationSettings(android: AndroidInitializationSettings('logo'));
 
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-}
+} 
  
 class MyApp extends StatelessWidget {
   const MyApp({super.key});

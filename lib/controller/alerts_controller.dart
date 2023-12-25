@@ -6,7 +6,7 @@ import 'package:temp_tracker/main.dart';
 
 class AlertsController extends GetxController {
   late Timer _timer;
-  final RxInt _timerDurationInMinutes = 10.obs; // Initial duration in minutes
+  final RxInt _timerDurationInMinutes = 5.obs; // Initial duration in minutes
  var isLoading = false.obs;
  String childId = "";
   RxInt get timerDurationInMinutes => _timerDurationInMinutes;
@@ -18,7 +18,7 @@ class AlertsController extends GetxController {
   }
 
   void startTimer() {
-    _timer = Timer.periodic(const Duration(minutes: 10), (timer) {
+    _timer = Timer.periodic(const Duration(seconds: 5), (timer) {
       if (_timerDurationInMinutes.value > 0) {
         _timerDurationInMinutes.value--;
       } else {
@@ -30,7 +30,7 @@ class AlertsController extends GetxController {
           .reference()
           .child("Children")
     .child(childId)
-          .update({"responded": 1});
+          .update({"responded": 2});
 
         // Set isLoading to true while updating
         isLoading.value = true;

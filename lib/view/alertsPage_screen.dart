@@ -91,7 +91,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                               
                                        Obx(() {
               return Text(
-                "${data[id]["name"]}'s body temperature is now abnormal \n response within ${controller.timerDurationInMinutes.value} minutes.",
+                "${data[id]["name"]}'s body temperature is now abnormal \n response within ${controller.timerDurationInMinutes.value} seconds.",
                 style: robotoMedium,
               );
             }),
