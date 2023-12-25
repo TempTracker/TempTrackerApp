@@ -3,6 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:temp_tracker/controller/manageChild_controller.dart';
+import 'package:temp_tracker/helper/temperatureHelper.dart';
 import 'package:temp_tracker/style/app_color.dart';
 import 'package:temp_tracker/widgets/custom_input.dart';
 
@@ -10,7 +11,9 @@ import '../../style/fonts.dart';
 
 
 class ChildInfoScreen extends GetView<ManageChildController> {
-  const ChildInfoScreen({super.key});
+  TemperatureHelper temperatureHelper = TemperatureHelper();
+      String? age;
+
    @override
   Widget build(BuildContext context) {
     return  Scaffold(
@@ -44,7 +47,8 @@ class ChildInfoScreen extends GetView<ManageChildController> {
                         const SizedBox(height: 16),
                        
                              CustomInput(
-                  controller: controller.ageC, label:  'Child Age', hint: ''),
+                  controller: controller.ageC, label:  'Child Age', hint: '',keyboardType: TextInputType.number,   validate: (value) {
+     if (value != null && double.tryParse(value) != null) { age = controller.ageC.text;}  }),
                   
                         
                         const SizedBox(height: 16),
@@ -62,19 +66,24 @@ CustomInput(
   label: 'Alert when temp reaches (opt)',
   hint: '',
   keyboardType: TextInputType.number,
-  validate: (value) {
-    if (value != null && double.tryParse(value) != null) {
-      double temperature = double.parse(value);
-      if (temperature > 37) {
-        Get.snackbar(
-          'Warning',
-          'Temperature is higher than normal!',
-          backgroundColor: Colors.red,
-          colorText: Colors.white,
-          duration: const Duration(seconds: 3),
-        );
-      }
-    }
+validate: (value) {
+     if (value != null && double.tryParse(value) != null) {
+                            double temperature = double.parse(value);
+                      
+                             double ageDouble = double.parse(age!);
+
+                            double upperLimit = temperatureHelper.getTemperatureLimit(ageDouble);
+
+                            if (temperature > upperLimit) {
+                              Get.snackbar(
+                                'Warning',
+                                'Temperature is higher than normal!',
+                                backgroundColor: Colors.red,
+                                colorText: Colors.white,
+                                duration: const Duration(seconds: 3),
+                              );
+                            }
+                          }
     return null;
   },
 ),

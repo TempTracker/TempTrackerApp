@@ -13,6 +13,8 @@ class AddChildController extends GetxController {
   TextEditingController nameC = TextEditingController();
   TextEditingController tempC = TextEditingController();
 
+
+
  void Clear(){
    nameC.clear();
       ageC.clear();
@@ -22,8 +24,7 @@ class AddChildController extends GetxController {
  }
 
 void addChild() {
-  double temperature = double.parse(tempC.text);
-  if (temperature <= 37) {
+
     isLoading = true.obs;
 
     if (nameC.text.isEmpty ||
@@ -61,8 +62,6 @@ void addChild() {
       // Handle error
       CustomToast.errorToast('Error adding child: $error');
     });
-  } else {
-    CustomToast.errorToast('Temperature is higher than normal!');
-  }
+ 
 }
 }

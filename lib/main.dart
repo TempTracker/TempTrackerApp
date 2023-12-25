@@ -9,6 +9,7 @@ import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
 import 'package:temp_tracker/controller/home_controller.dart';
 import 'package:temp_tracker/firebase_options.dart';
+import 'package:temp_tracker/helper/temperatureHelper.dart';
 import 'package:temp_tracker/routes/app_pages.dart';
 import 'helper/git_di.dart' as di;
 
@@ -27,12 +28,15 @@ void main() async {
 
 
 }
-HomeController homeController = new HomeController();
+HomeController homeController =  HomeController();
+TemperatureHelper temperatureHelper = TemperatureHelper();
 String? name;
 String? temperature;
 double? temperatureDouble; 
 String? childId;
 int? isResponded;
+String? age;
+double? ageDouble;
 
 Future<void> initializeService() async {
   Firebase.initializeApp(); 
@@ -57,9 +61,13 @@ void _onStart(ServiceInstance service) {
   Firebase.initializeApp();
   Timer.periodic(const Duration(seconds: 5), (timer) async {
    fetchChildrenData();
-    temperatureDouble = double.tryParse(temperature ?? "0.0") ?? 0.0;
 
-if (temperatureDouble! > 37 && isResponded! == 0) {
+    temperatureDouble = double.tryParse(temperature ?? "0.0") ?? 0.0;
+    ageDouble = double.tryParse(age ?? "0.0") ?? 0.0;
+
+  double upperLimit = temperatureHelper.getTemperatureLimit(ageDouble!);
+
+    if (temperatureDouble! > upperLimit && isResponded! == 0) {
    homeController.storeDataInFirestore(childId!, name!, temperatureDouble!);
    homeController.changeTime(childId!);
  sendLocalNotification();
@@ -81,6 +89,7 @@ Future<void> fetchChildrenData() async {
   temperature = child['temperature'];
   childId =child['id'];
   isResponded = child['responded'];
+  age = child['age'];
   
 
 }

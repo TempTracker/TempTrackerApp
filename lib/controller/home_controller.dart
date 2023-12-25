@@ -12,29 +12,6 @@ class HomeController extends GetxController {
  var completedTasksCount = 0.obs;
  
 
-// //   // Function to store data in Firestore
-// Future<void> storeDataInFirestore(String? id, String name, double temperature) async {
-//   CollectionReference highTempsCollection = FirebaseFirestore.instance.collection('HighTemps').doc(id);
-
-//   try {
-//     String formattedDate = DateFormat('dd-MM-yyyy').format(DateTime.now());
-//      String formattedTime = DateFormat('h:mm a').format(DateTime.now());
-//     CollectionReference todayCollection = highTempsCollection.doc(id).collection(formattedDate);
-
-//     await todayCollection.add({
-//       'id': id,
-//       'name': name,
-//       'temperature': temperature,
-//       'condition': 'High Temperature',
-//       'time': formattedTime,
-//     });
-
-//     print('Data stored successfully in Firestore');
-//   } catch (e) {
-//     print('Error storing data in Firestore: $e');
-//   }
-// }
-
 // Function to store data in Firestore
 Future<void> storeDataInFirestore(String? id, String name, double temperature) async {
   CollectionReference highTempsCollection = FirebaseFirestore.instance.collection('HighTemps');

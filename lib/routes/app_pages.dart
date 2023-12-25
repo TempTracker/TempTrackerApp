@@ -51,11 +51,11 @@ class AppPages {
 
      GetPage(
       name: _Paths.ADDCHILD,
-      page: () =>  const AddChildScreen(),
+      page: () =>   AddChildScreen(),
     ),
      GetPage(
       name: _Paths.CHILDINFO,
-      page: () =>  const ChildInfoScreen(),
+      page: () =>   ChildInfoScreen(),
     ),
 
      GetPage(

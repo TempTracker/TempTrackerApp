@@ -36,8 +36,7 @@ fetchChildren() ;
  }
 
 void updateChild() {
-   double temperature = double.parse(tempC.text);
-   if (temperature <= 37 ){
+ 
   isLoading = true.obs;
 
   if (nameC.text.isEmpty ||
@@ -64,10 +63,7 @@ void updateChild() {
     // Handle error
     CustomToast.errorToast('Error updating child: $error');
   });
-   }
-   else {
-      CustomToast.errorToast('Temperature is higher than normal!');
-   }
+  
 }
 
 

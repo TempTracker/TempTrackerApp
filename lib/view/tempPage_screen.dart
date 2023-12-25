@@ -5,12 +5,15 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:temp_tracker/controller/home_controller.dart';
+import 'package:temp_tracker/helper/temperatureHelper.dart';
 
 import 'package:temp_tracker/style/fonts.dart';
 import 'package:temp_tracker/style/images.dart';
 
 class TempPageScreen extends GetView<HomeController> {
   bool isStoringData = false;
+  
+  TemperatureHelper temperatureHelper = TemperatureHelper();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -34,14 +37,11 @@ class TempPageScreen extends GetView<HomeController> {
 
   //           // Extract temperature value and convert it to a double
             double temperature = double.tryParse(data[id]["temperature"] ?? "0.0") ?? 0.0;
+            double age  = double.tryParse(data[id]["age"] ?? "0.0") ?? 0.0;
 
-            // Determine temperature status
-            String temperatureStatus = (temperature > 37)
-                ? "High Temperature"
-                : "Normal";
-   String imagePath = (temperature > 37)
-                ? Images.tempgif
-                : Images.normalTemp;
+  double upperLimit = temperatureHelper.getTemperatureLimit(age);
+                  String temperatureStatus = temperatureHelper.getTemperatureStatus(temperature, upperLimit);
+                  String imagePath = temperatureHelper.getTemperatureImagePath(temperature, upperLimit);
             return Container(
               padding: const EdgeInsets.all(15),
               child: Container(
@@ -77,7 +77,7 @@ class TempPageScreen extends GetView<HomeController> {
                               " ${temperature} °C",
                               style: TextStyle(
                                 fontSize: 40,
-                                color: (temperature > 37)
+                                color: (temperature > upperLimit)
                                     ? Colors.red
                                     : Colors.black, // Adjust color based on condition
                                 fontWeight: FontWeight.bold,
@@ -87,7 +87,7 @@ class TempPageScreen extends GetView<HomeController> {
                               temperatureStatus,
                               style: TextStyle(
                                 fontSize: 25,
-                                color: (temperature > 37)
+                                color: (temperature > upperLimit)
                                     ? Colors.red
                                     : Colors.black, // Adjust color based on condition
                                 fontWeight: FontWeight.bold,
