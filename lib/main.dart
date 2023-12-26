@@ -17,9 +17,9 @@ void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
  //await initializeFirebase();
-     Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+   //  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
-  // await initializeService();
+   await initializeService();
 
   await di.init();
 
@@ -49,7 +49,7 @@ Future<void> initializeService() async {
     iosConfiguration: IosConfiguration(),
     androidConfiguration: AndroidConfiguration(
       autoStart: true,
-notificationChannelId: "temptracker",
+
       autoStartOnBoot: true,
       onStart: _onStart,  
       isForegroundMode: true,
@@ -61,7 +61,7 @@ notificationChannelId: "temptracker",
 void _onStart(ServiceInstance service) {
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   Firebase.initializeApp();
-  Timer.periodic(const Duration(seconds: 5), (timer) async {
+  Timer.periodic(const Duration(seconds: 15), (timer) async {
    fetchChildrenData();
 
     temperatureDouble = double.tryParse(temperature ?? "0.0") ?? 0.0;
@@ -138,7 +138,7 @@ Future<void> initializeLocalNotifications() async {
       InitializationSettings(android: AndroidInitializationSettings('logo'));
 
   await flutterLocalNotificationsPlugin.initialize(initializationSettings);
-} 
+}
  
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
