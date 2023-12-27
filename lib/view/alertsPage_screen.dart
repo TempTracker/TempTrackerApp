@@ -43,7 +43,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
             return  Container(
                   padding: const EdgeInsets.all(15),
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.15,
+                    height: MediaQuery.of(context).size.height * 0.18,
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(40),
@@ -76,12 +76,12 @@ class AlertsPageScreen extends GetView<AlertsController> {
                                       const Text(
                                         "High Temperature",
                                         style: TextStyle(
-                                          fontSize: 25,
+                                          fontSize: 20,
                                           color: Colors.red,
                                           fontWeight: FontWeight.bold,
                                         ),
                                       ),
-                                       const SizedBox(width: 60),
+                                       const SizedBox(width: 30),
                                       Text(
                                         "${data[id]["time"]}",
                                         style: robotoBlack,
@@ -101,6 +101,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                             ),
                           ],
                         ),
+                        
                         Positioned(
                           bottom: 0,
                           right: 15,

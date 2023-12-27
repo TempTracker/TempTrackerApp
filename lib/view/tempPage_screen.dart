@@ -45,7 +45,7 @@ class TempPageScreen extends GetView<HomeController> {
             return Container(
               padding: const EdgeInsets.all(15),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.15,
+                height: MediaQuery.of(context).size.height * 0.18,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15.0),
@@ -86,7 +86,7 @@ class TempPageScreen extends GetView<HomeController> {
                             Text(
                               temperatureStatus,
                               style: TextStyle(
-                                fontSize: 25,
+                                fontSize: 20,
                                 color: (temperature > upperLimit)
                                     ? Colors.red
                                     : Colors.black, // Adjust color based on condition
