@@ -56,7 +56,7 @@ class SettingsScreen  extends  GetView<LoginController> {
         height: size.height * 0.09,
           child: ElevatedButton(
           onPressed: ()  async{
-         Get.toNamed(Routes.CHILDRENLIST);
+         Get.toNamed(Routes.CHILDRENLIST,  arguments: controller.auth.currentUser!.uid);
         
           },
            style: ElevatedButton.styleFrom(

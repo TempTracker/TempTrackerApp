@@ -7,6 +7,7 @@ import 'package:temp_tracker/controller/manageChild_controller.dart';
 import 'package:temp_tracker/routes/app_pages.dart';
 import 'package:temp_tracker/style/app_color.dart';
 import 'package:temp_tracker/style/fonts.dart';
+import 'package:temp_tracker/style/images.dart';
 
 class ChildrenListScreen extends GetView<ChildrenListController> {
   const ChildrenListScreen({Key? key}) : super(key: key);
@@ -28,7 +29,8 @@ class ChildrenListScreen extends GetView<ChildrenListController> {
               children: [
                    StreamBuilder(
               // ignore: deprecated_member_use
-              stream: FirebaseDatabase.instance.reference().child("Children").onValue,
+              stream: FirebaseDatabase.instance.reference().child("Children").orderByChild("uId")
+      .equalTo(controller.uId).onValue,
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   var data = snapshot.data!.snapshot.value;
@@ -103,9 +105,22 @@ class ChildrenListScreen extends GetView<ChildrenListController> {
                             )
                 )
                 ;
+                
                                  },
                     );
-                  }
+                    
+                  } else {
+                  return Center(child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 30,),
+                        Text("You do not have children", style: robotoMedium,),
+                        Image.asset(Images.nodata),
+                      ],
+                    ),
+                  ));
+                }
                 }
 
                 return Center(child: CircularProgressIndicator()); // Show a loading indicator or error message

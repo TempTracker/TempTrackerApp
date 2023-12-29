@@ -4,13 +4,15 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:temp_tracker/controller/childrenList_controller.dart';
 import 'package:temp_tracker/controller/home_controller.dart';
+import 'package:temp_tracker/controller/login_controller.dart';
 import 'package:temp_tracker/helper/temperatureHelper.dart';
 
 import 'package:temp_tracker/style/fonts.dart';
 import 'package:temp_tracker/style/images.dart';
 
-class TempPageScreen extends GetView<HomeController> {
+class TempPageScreen extends GetView<LoginController> {
   bool isStoringData = false;
   
   TemperatureHelper temperatureHelper = TemperatureHelper();
@@ -22,7 +24,8 @@ class TempPageScreen extends GetView<HomeController> {
         child: Column(
           children: [
          StreamBuilder(
-  stream: FirebaseDatabase.instance.reference().child("Children").onValue,
+  stream: FirebaseDatabase.instance.reference().child("Children").orderByChild("uId")
+      .equalTo(controller.auth.currentUser!.uid).onValue,
   builder: (context, AsyncSnapshot snapshot) {
     if (snapshot.hasData) {
       var data = snapshot.data!.snapshot.value;
@@ -107,7 +110,18 @@ class TempPageScreen extends GetView<HomeController> {
             );
           },
         );
-      }
+      } else {
+                  return Center(child: Padding(
+                    padding: const EdgeInsets.all(10.0),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 30,),
+                        Text("You do not have children", style: robotoMedium,),
+                        Image.asset(Images.nodata),
+                      ],
+                    ),
+                  ));
+                }
         }
       else {
           return Center(child: Text("No data available."));

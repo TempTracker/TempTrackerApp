@@ -1,11 +1,15 @@
+import 'dart:async';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:temp_tracker/controller/childrenList_controller.dart';
+import 'package:temp_tracker/controller/login_controller.dart';
 
 import 'package:temp_tracker/routes/app_pages.dart';
 import 'package:temp_tracker/style/fonts.dart';
-class ChildrenList2Screen extends GetView<ChildrenListController> {
+import 'package:temp_tracker/style/images.dart';
+class ChildrenList2Screen extends GetView<LoginController> {
   const ChildrenList2Screen({Key? key}) : super(key: key);
 
   @override
@@ -18,7 +22,8 @@ class ChildrenList2Screen extends GetView<ChildrenListController> {
           children: [
             StreamBuilder(
               // ignore: deprecated_member_use
-              stream: FirebaseDatabase.instance.reference().child("Children").onValue,
+              stream: FirebaseDatabase.instance.reference().child("Children").orderByChild("uId")
+      .equalTo(controller.auth.currentUser!.uid).onValue,
               builder: (context, AsyncSnapshot snapshot) {
                 if (snapshot.hasData) {
                   var data = snapshot.data!.snapshot.value;
@@ -95,7 +100,18 @@ class ChildrenList2Screen extends GetView<ChildrenListController> {
                 ;
                                  },
                     );
-                  }
+                    } else {
+                  return Center(child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        SizedBox(height: 30,),
+                        Text("You do not have children", style: robotoMedium,),
+                        Image.asset(Images.nodata),
+                      ],
+                    ),
+                  ));
+                }
                 }
 
                 return Center(child: CircularProgressIndicator()); // Show a loading indicator or error message

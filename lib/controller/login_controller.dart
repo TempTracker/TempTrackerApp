@@ -47,7 +47,7 @@ Future<void> login() async {
 
    
 
-      await Get.offNamed(Routes.MAINPAGE);
+      await Get.offNamed(Routes.MAINPAGE, arguments:  auth.currentUser!.uid);
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         CustomToast.errorToast("Account not found");

@@ -6,12 +6,15 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
  
+String? uId = Get.arguments;
+ @override
+
  var completedTasksCount = 0.obs;
  
-
 // Function to store data in Firestore
 Future<void> storeDataInFirestore(String? id, String name, double temperature) async {
   CollectionReference highTempsCollection = FirebaseFirestore.instance.collection('HighTemps');
@@ -31,6 +34,27 @@ Future<void> storeDataInFirestore(String? id, String name, double temperature) a
     // Add 'subId' field outside the 'todayCollection'
     highTempsCollection.doc(id).set({
       'subId': id,
+    });
+
+    print('Data stored successfully in Firestore');
+  } catch (e) {
+    print('Error storing data in Firestore: $e');
+  }
+}
+
+Future<void> storeAlertsInFirestore(String? id, String name, double temperature, String uId) async {
+  CollectionReference alertsCollection = FirebaseFirestore.instance.collection('Alerts');
+
+  try {
+    String formattedTime = DateFormat('h:mm a').format(DateTime.now());
+
+    await alertsCollection.add({
+      'id': id, 
+      'name': name,
+      'temperature': temperature,
+      'condition': 'High Temperature',
+      'time': formattedTime,
+      'uId':uId
     });
 
     print('Data stored successfully in Firestore');
