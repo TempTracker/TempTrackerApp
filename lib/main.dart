@@ -144,13 +144,13 @@ FirebaseDatabase.instance
           .update({"responded": 0});
 }
 
-else if (temperatureDouble! < upperLimit && isResponded == 2){
-FirebaseDatabase.instance
-          .reference()
-          .child("Children")
-    .child(childId!)
-          .update({"responded": 0});
-}
+// else if (temperatureDouble! < upperLimit && isResponded == 2){
+// FirebaseDatabase.instance
+//           .reference()
+//           .child("Children")
+//     .child(childId!)
+//           .update({"responded": 0});
+// }
     
   });
   print("Background service ${DateTime.now()}") ;
