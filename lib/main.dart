@@ -80,7 +80,6 @@ Future<void> initservice()async{
         onStart: onStart,
         autoStart: true,
         isForegroundMode: true,
-      //  notificationChannelId: "coding is life",//comment this line if show white screen and app crash
         initialNotificationTitle: "background service",
         initialNotificationContent: "Temp Tracker",
         foregroundServiceNotificationId: 90
@@ -112,7 +111,7 @@ void onStart(ServiceInstance service){
   });
 
   //display notification as service
-  Timer.periodic(Duration(seconds: 10), (timer) {
+  Timer.periodic(Duration(seconds: 40), (timer) {
    fetchChildrenData();
 
     temperatureDouble = double.tryParse(temperature ?? "0.0") ?? 0.0;
@@ -132,8 +131,10 @@ void onStart(ServiceInstance service){
         "Warning",
         "High temperature detected for $name, Current temperature: ${temperatureDouble}°C' !!,",
      
-     
-        NotificationDetails(android:AndroidNotificationDetails("background service","coding is life service",icon: "logo")));
+  //   NotificationDetails(),
+        NotificationDetails(android:AndroidNotificationDetails("background service","coding is life service",icon: "logo")        )
+        
+        );
 }
  else if (temperatureDouble! < upperLimit && isResponded == 1){
 FirebaseDatabase.instance
