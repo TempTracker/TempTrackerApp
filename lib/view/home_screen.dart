@@ -36,7 +36,8 @@ print(uId);
         
        appBar: AppBar(title: Padding(
         padding: const EdgeInsets.all(20),
-        child: Text( 'Wellcome Sara', style: robotoHugeWhite,)),
+        child:  Obx(
+              () =>  Text( 'Wellcome ${controller.username}', style: robotoHugeWhite,),  ),),
          backgroundColor: AppColor.primaryColor,   automaticallyImplyLeading: false,), 
          
         body: Obx(

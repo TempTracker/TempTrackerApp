@@ -10,6 +10,8 @@ import 'package:flutter/services.dart';
 import 'package:flutter_background_service/flutter_background_service.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:get/get_navigation/src/root/get_material_app.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:temp_tracker/controller/alerts_controller.dart';
 import 'package:temp_tracker/controller/home_controller.dart';
 import 'package:temp_tracker/firebase_options.dart';
 import 'package:temp_tracker/helper/temperatureHelper.dart';
@@ -20,19 +22,21 @@ import 'helper/git_di.dart' as di;
 
 final FlutterLocalNotificationsPlugin flutterLocalPlugin =FlutterLocalNotificationsPlugin();
 const AndroidNotificationChannel notificationChannel=AndroidNotificationChannel(
+  'temperature_alerts',
     "Warning",
-    "this temperature is very high ",
-    description: "This is channel des....",
-  importance: Importance.high
+    
+  importance: Importance.max,
+  showBadge: true
+
 );
 
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
+  await SharedPreferences.getInstance();
  //await initializeFirebase();
    //  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
- //  await initializeService();
  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
  await initservice();
   await di.init();
@@ -45,11 +49,12 @@ void main() async {
 
 
 }
+AlertsController alertsController = AlertsController();
 HomeController homeController =  HomeController();
 TemperatureHelper temperatureHelper = TemperatureHelper();
 String? name;
 String? temperature;
-double? temperatureDouble; 
+double? temperatureDouble;
 String? childId;
 String? uId;
 int? isResponded;
@@ -60,6 +65,7 @@ double? ageDouble;
 
 Future<void> initservice()async{
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+
   var service=FlutterBackgroundService();
   //set for ios
   if(Platform.isIOS){
@@ -80,9 +86,8 @@ Future<void> initservice()async{
         onStart: onStart,
         autoStart: true,
         isForegroundMode: true,
-        initialNotificationTitle: "background service",
+       initialNotificationTitle: "background service",
         initialNotificationContent: "Temp Tracker",
-        foregroundServiceNotificationId: 90
       )
   );
   service.startService();
@@ -111,7 +116,7 @@ void onStart(ServiceInstance service){
   });
 
   //display notification as service
-  Timer.periodic(Duration(seconds: 40), (timer) {
+  Timer.periodic(Duration(seconds: 10), (timer) {
    fetchChildrenData();
 
     temperatureDouble = double.tryParse(temperature ?? "0.0") ?? 0.0;
@@ -129,10 +134,8 @@ void onStart(ServiceInstance service){
     flutterLocalPlugin.show(
         90,
         "Warning",
-        "High temperature detected for $name, Current temperature: ${temperatureDouble}°C' !!,",
-     
-  //   NotificationDetails(),
-        NotificationDetails(android:AndroidNotificationDetails("background service","coding is life service",icon: "logo")        )
+        "High temperature detected for $name, Current temperature: ${temperatureDouble}°C' !!",
+        NotificationDetails(android:AndroidNotificationDetails('temperature_alerts',"Warning",icon: "logo")        )
         
         );
 }
@@ -210,6 +213,9 @@ Future<void> fetchChildrenData() async {
       // Do something with the data, such as storing it in a list or printing it
       print('Child: $name, Temperature: $temperature, ID: $childId, Responded: $isResponded, Age: $age, UID: $uId');
     });
+
+
+    
   } else {
     // Handle the case where there is no data
     print('No data available for children.');

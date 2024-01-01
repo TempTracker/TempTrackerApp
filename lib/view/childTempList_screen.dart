@@ -91,7 +91,7 @@ class ChildTempListScreen extends GetView<TempController> {
                       children: [
                         TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('Time'))),
                         TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('Temperature'))),
-                        TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('Condition'))),
+                     //   TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('Condition'))),
                       ],
                     ),
                     for (var record in controller.childrenTemps)
@@ -99,7 +99,7 @@ class ChildTempListScreen extends GetView<TempController> {
                         children: [
                           TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text(record['time']))),
                           TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text('${record['temperature']}°C'))),
-                          TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text(record['condition']))),
+                          //TableCell(child: Padding(padding: const EdgeInsets.all(8.0), child: Text(record['condition']))),
                         ],
                       ),
                   ],

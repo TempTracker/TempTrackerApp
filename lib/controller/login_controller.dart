@@ -32,15 +32,15 @@ Future<void> login() async {
         password: passC.text,
       );
  sharedPreferences.setString('userId', auth.currentUser!.uid);
-         getUser() ;
+
+       await  getUser();
           
           // Get the user's email and username from Firebase Authentication
           String email = auth.currentUser!.email ?? '';
-          String username = auth.currentUser!.displayName ?? '';
           
           // Store the user's email andusername in SharedPreferences
           sharedPreferences.setString('email', email);
-          sharedPreferences.setString('name', username);
+          
 
    
       isLoading.value = false;
@@ -79,7 +79,7 @@ Future<void> login() async {
     String? email;
     await firestore
         .collection('user')
-        .doc(sharedPreferences.getString('userId'))
+        .doc(auth.currentUser!.uid)
         .get()
         .then((data) {
             userName = data['name'];
@@ -96,9 +96,5 @@ Future<void> login() async {
 
 
 
-  void logout() async {
-    // //await auth.signOut();
-    // Get.delete<HomeController>();
-    // Get.offAllNamed(Routes.LOGIN);
-  }
+ 
 }

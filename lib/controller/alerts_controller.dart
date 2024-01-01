@@ -12,6 +12,7 @@ class AlertsController extends GetxController {
  String? childId;
  String? childIdforTimer;
   RxInt get timerDurationInMinutes => _timerDurationInMinutes;
+  
 
   @override
   void onInit() {
@@ -26,7 +27,8 @@ class AlertsController extends GetxController {
       } else {
         // Timer completed, you can perform any action here
         _timer.cancel();
-        
+          _timerDurationInMinutes.value = 40;
+           startTimer();
         // Assuming id is the unique identifier for each record
         FirebaseDatabase.instance
           .reference()

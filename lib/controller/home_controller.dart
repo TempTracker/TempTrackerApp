@@ -9,9 +9,24 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomeController extends GetxController {
+
+   late SharedPreferences _prefs;
+var username = "".obs;
+
+@override
+void onInit() async {
+  super.onInit();
+  _prefs = await SharedPreferences.getInstance();
+     username.value = _prefs.getString('name') ?? '';
+       
+}
+
+
  
 String? uId = Get.arguments;
  @override
+
+
 
  var completedTasksCount = 0.obs;
  
