@@ -25,11 +25,10 @@ class AlertsController extends GetxController {
       if (_timerDurationInMinutes.value > 0) {
         _timerDurationInMinutes.value--;
       } else {
-        // Timer completed, you can perform any action here
         _timer.cancel();
           _timerDurationInMinutes.value = 40;
            startTimer();
-        // Assuming id is the unique identifier for each record
+      
         FirebaseDatabase.instance
           .reference()
           .child("Children")
@@ -37,12 +36,9 @@ class AlertsController extends GetxController {
           .update({"responded": 2});
 
  deleteRecord(childIdforTimer);
-        // Set isLoading to true while updating
         isLoading.value = true;
 print("going to 1 state done");
-        // You can perform any additional actions or update UI as needed
-
-        // Set isLoading back to false after the update is done
+     
         isLoading.value = false;
       }
     });
