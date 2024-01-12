@@ -22,7 +22,7 @@ fetchChildren() ;
   TextEditingController nameC = TextEditingController();
   TextEditingController ageC = TextEditingController();
   TextEditingController emgNameC = TextEditingController();
-  TextEditingController emgPhoneC = TextEditingController();
+  TextEditingController emgEmailC = TextEditingController();
   TextEditingController tempC = TextEditingController();
   var isLoading = false.obs;
 
@@ -31,7 +31,7 @@ fetchChildren() ;
       nameC.clear();
       ageC.clear();
       emgNameC.clear();
-      emgPhoneC.clear();
+      emgEmailC.clear();
       tempC.clear();
  }
 
@@ -42,7 +42,7 @@ void updateChild() {
   if (nameC.text.isEmpty ||
       ageC.text.isEmpty ||
       emgNameC.text.isEmpty ||
-      emgPhoneC.text.isEmpty ||
+      emgEmailC.text.isEmpty ||
       tempC.text.isEmpty) {
     CustomToast.errorToast('Please fill in all fields');
     return;
@@ -52,7 +52,7 @@ void updateChild() {
     'name': nameC.text,
     'age': ageC.text,
     'emergName': emgNameC.text,
-    'emergPhone': emgPhoneC.text,
+    'emgEmail': emgEmailC.text,
     'temperature': tempC.text,
   }).then((value) {
     isLoading = false.obs;
@@ -81,7 +81,7 @@ void updateChild() {
     nameC.text = child['name'];
     ageC.text = child['age'];
     emgNameC.text = child['emergName'];
-    emgPhoneC.text = child['emergPhone'];
+    emgEmailC.text = child['emgEmail'];
     tempC.text = child['temperature'];
 
 }

@@ -57,7 +57,7 @@ TemperatureHelper temperatureHelper = TemperatureHelper();
                                                 const SizedBox(height: 16),
 
                              CustomInput(
-                  controller: controller.emgPhoneC, label:  'Emergency person Phone  ', hint: '', keyboardType: TextInputType.number,),
+                  controller: controller.emgEmailC, label:  'Emergency person Email  ', hint: '', keyboardType: TextInputType.emailAddress,),
                   
                                                 const SizedBox(height: 16),
 CustomInput(

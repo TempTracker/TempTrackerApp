@@ -9,7 +9,7 @@ class AddChildController extends GetxController {
     TextEditingController ageC = TextEditingController();
   DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
   TextEditingController emgNameC = TextEditingController();
-  TextEditingController emgPhoneC = TextEditingController();
+  TextEditingController emgEmailC = TextEditingController();
  var isLoading = false.obs;
   TextEditingController nameC = TextEditingController();
   TextEditingController tempC = TextEditingController();
@@ -28,7 +28,7 @@ String? uId ;
    nameC.clear();
       ageC.clear();
       emgNameC.clear();
-      emgPhoneC.clear();
+      emgEmailC.clear();
       tempC.clear();
  }
 void addChild() {
@@ -37,7 +37,7 @@ void addChild() {
   if (nameC.text.isEmpty ||
       ageC.text.isEmpty ||
       emgNameC.text.isEmpty ||
-      emgPhoneC.text.isEmpty ||
+      emgEmailC.text.isEmpty ||
       tempC.text.isEmpty) {
     CustomToast.errorToast('Please fill in all fields');
     return;
@@ -62,7 +62,7 @@ void addChild() {
     'name': nameC.text,
     'age': ageC.text,
     'emergName': emgNameC.text,
-    'emergPhone': emgPhoneC.text,
+    'emgEmail': emgEmailC.text,
     'temperature': tempC.text,
     'responded': 0,
     'id': childKey, // Add the child key here
