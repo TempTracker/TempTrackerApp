@@ -37,12 +37,11 @@ class TempPageScreen extends GetView<LoginController> {
           itemCount: ids.length,
           itemBuilder: (context, index) {
             var id = ids[index];
-
-  //           // Extract temperature value and convert it to a double
             double temperature = double.tryParse(data[id]["temperature"] ?? "0.0") ?? 0.0;
             double age  = double.tryParse(data[id]["age"] ?? "0.0") ?? 0.0;
 
   double upperLimit = temperatureHelper.getTemperatureLimit(age);
+
                   String temperatureStatus = temperatureHelper.getTemperatureStatus(temperature, upperLimit);
                   String imagePath = temperatureHelper.getTemperatureImagePath(temperature, upperLimit);
             return Container(

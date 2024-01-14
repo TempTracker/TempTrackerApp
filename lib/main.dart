@@ -60,7 +60,8 @@ String? uId;
 int? isResponded;
 String? age;
 double? ageDouble;
-
+String? alertWhen;
+double? alertWhenDouble;
 
 
 Future<void> initservice()async{
@@ -91,9 +92,6 @@ Future<void> initservice()async{
       )
   );
   service.startService();
-
-  //for ios enable background fetch from add capability inside background mode
-
 }
 
 //onstart method
@@ -116,16 +114,15 @@ void onStart(ServiceInstance service){
   });
 
   //display notification as service
-  Timer.periodic(Duration(seconds: 10), (timer) {
-   fetchChildrenData();
+  Timer.periodic(Duration(seconds: 3), (timer) async {
+   await fetchChildrenData();
 
     temperatureDouble = double.tryParse(temperature ?? "0.0") ?? 0.0;
     ageDouble = double.tryParse(age ?? "0.0") ?? 0.0;
-
-  double upperLimit = temperatureHelper.getTemperatureLimit(ageDouble!);
+    alertWhenDouble =  double.tryParse(alertWhen?? "0.0") ?? 0.0;
 // the responded field wil be changed to 0 if the sms is sent by HW
 // if it was responded by the user then a function here is going to change the value into 0 after 15 second
-    if (temperatureDouble! > upperLimit && isResponded! == 0) {
+    if (temperatureDouble!  >= alertWhenDouble! && isResponded! == 0) {
    homeController.storeDataInFirestore(childId!, name!, temperatureDouble!);
       homeController.storeAlertsInFirestore(childId!, name!, temperatureDouble!, uId!);
 
@@ -139,7 +136,7 @@ void onStart(ServiceInstance service){
         
         );
 }
- else if (temperatureDouble! < upperLimit && isResponded == 1){
+ else if (temperatureDouble! < alertWhenDouble! && isResponded == 1){
 FirebaseDatabase.instance
           .reference()
           .child("Children")
@@ -170,22 +167,6 @@ Future<bool> iosBackground(ServiceInstance service)async{
   return true;
 }
 
-// Future<void> fetchChildrenData() async {
-//   DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('Children');
-//   DataSnapshot snapshot = await databaseReference.child("-NmIAiq4RX_ouuyWTYxL").get();
-
-//   Map child = snapshot.value as Map;
-
-//   // Store the fetched name in the variable
-//   name = child['name'];
-//   temperature = child['temperature'];
-//   childId =child['id'];
-//   isResponded = child['responded'];
-//   age = child['age'];
-//   uId = child['uId'];
-  
-
-// }
 Future<void> fetchChildrenData() async {
   DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('Children');
   
@@ -209,12 +190,11 @@ Future<void> fetchChildrenData() async {
   isResponded = child['responded'];
   age = child['age'];
   uId = child['uId'];
+ alertWhen  = child['alertWhen'];
 
       // Do something with the data, such as storing it in a list or printing it
       print('Child: $name, Temperature: $temperature, ID: $childId, Responded: $isResponded, Age: $age, UID: $uId');
     });
-
-
     
   } else {
     // Handle the case where there is no data

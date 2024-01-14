@@ -63,7 +63,7 @@ void addChild() {
     'age': ageC.text,
     'emergName': emgNameC.text,
     'emgEmail': emgEmailC.text,
-    'temperature': tempC.text,
+    'alertWhen': tempC.text,
     'responded': 0,
     'id': childKey, // Add the child key here
     'time':"",

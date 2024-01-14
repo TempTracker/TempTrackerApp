@@ -53,7 +53,7 @@ void updateChild() {
     'age': ageC.text,
     'emergName': emgNameC.text,
     'emgEmail': emgEmailC.text,
-    'temperature': tempC.text,
+    'alertWhen': tempC.text,
   }).then((value) {
     isLoading = false.obs;
     CustomToast.successToast('Updated Child successfully');
@@ -82,7 +82,7 @@ void updateChild() {
     ageC.text = child['age'];
     emgNameC.text = child['emergName'];
     emgEmailC.text = child['emgEmail'];
-    tempC.text = child['temperature'];
+    tempC.text = child['alertWhen'];
 
 }
 
