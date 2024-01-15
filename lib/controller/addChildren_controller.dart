@@ -37,19 +37,26 @@ void addChild() {
   if (nameC.text.isEmpty ||
       ageC.text.isEmpty ||
       emgNameC.text.isEmpty ||
-      emgEmailC.text.isEmpty ||
-      tempC.text.isEmpty) {
+      emgEmailC.text.isEmpty
+  //|| tempC.text.isEmpty
+  ) {
     CustomToast.errorToast('Please fill in all fields');
     return;
   }
 
   double temperature = double.tryParse(tempC.text) ?? 0.0;
+int age = (double.tryParse(ageC.text) ?? 0.0).toInt();
 
   if (temperature > 40 || temperature < 35) {
      isLoading = false.obs;
     CustomToast.errorToast('Invalid temperature. Temperature must be between 35 and 40.');
     return;
+  } else if(age > 12 ){
+      isLoading = false.obs;
+    CustomToast.errorToast('Invalid age. Maximum children age is 12.');
+    return;
   }
+  else{
 
   DatabaseReference childrenRef = databaseReference.child("Children");
 
@@ -78,6 +85,7 @@ void addChild() {
     // Handle error
     CustomToast.errorToast('Error adding child: $error');
   });
+  }
 }
 
 }

@@ -4,9 +4,9 @@ import 'package:temp_tracker/style/images.dart';
 class TemperatureHelper {
   double getTemperatureLimit(double age) {
     if (age >= 0 && age <= 2) {
-      return 37.5;
+      return 38.0;
     } else if (age >= 3 && age <= 10) {
-      return 37.5;
+      return 37.8;
     } else {
       return 37.6;
     }

@@ -24,7 +24,7 @@ class AppColor {
 
   static Color warning = const Color(0xFFEB8600);
   static Color secondaryColor = const Color(0xFFE0EC53);
-  static const Color primaryColor = Color(0xFF003E47);
+  static const Color primaryColor = Color(0xFF0000000);//xFF003E47
   static Color whiteColor = const Color(0xFFFFFFFF);
   static Color blackColor = const Color(0xFF000000);
   static Color gradientColor = const Color(0xFF45A735);

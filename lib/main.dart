@@ -120,13 +120,13 @@ void onStart(ServiceInstance service){
     temperatureDouble = double.tryParse(temperature ?? "0.0") ?? 0.0;
     ageDouble = double.tryParse(age ?? "0.0") ?? 0.0;
     alertWhenDouble =  double.tryParse(alertWhen?? "0.0") ?? 0.0;
+    double upperLimit = temperatureHelper.getTemperatureLimit(ageDouble!);
 // the responded field wil be changed to 0 if the sms is sent by HW
 // if it was responded by the user then a function here is going to change the value into 0 after 15 second
     if (temperatureDouble!  >= alertWhenDouble! && isResponded! == 0) {
-   homeController.storeDataInFirestore(childId!, name!, temperatureDouble!);
-      homeController.storeAlertsInFirestore(childId!, name!, temperatureDouble!, uId!);
 
-   homeController.changeTime(childId!);
+  homeController.storeAlertsInFirestore(childId!, name!, temperatureDouble!, uId!);
+  homeController.changeTime(childId!);
 
     flutterLocalPlugin.show(
         90,
@@ -135,6 +135,25 @@ void onStart(ServiceInstance service){
         NotificationDetails(android:AndroidNotificationDetails('temperature_alerts',"Warning",icon: "logo")        )
         
         );
+} else if (temperatureDouble!  >= upperLimit! && isResponded! == 0){
+
+homeController.storeDataInFirestore(childId!, name!, temperatureDouble!);
+homeController.storeAlertsInFirestore(childId!, name!, temperatureDouble!, uId!);
+homeController.changeTime(childId!);
+    flutterLocalPlugin.show(
+        90,
+        "Warning",
+        "High temperature detected for $name, Current temperature: ${temperatureDouble}°C' !!",
+        NotificationDetails(android:AndroidNotificationDetails('temperature_alerts',"Warning",icon: "logo")        )
+        
+        );
+}
+ else if (temperatureDouble! < upperLimit! && isResponded == 1){
+FirebaseDatabase.instance
+          .reference()
+          .child("Children")
+    .child(childId!)
+          .update({"responded": 0});
 }
  else if (temperatureDouble! < alertWhenDouble! && isResponded == 1){
 FirebaseDatabase.instance
