@@ -23,43 +23,46 @@ class MainPageScreen extends GetView<HomeController> {
 
    MainPageScreen({super.key});
 
-         
+     @override
+Widget build(BuildContext context) {
+  String? uId;
+  print(uId);
 
-  @override
-  Widget build(BuildContext context) {
-     
-String? uId;
-print(uId);
-    return WillPopScope(
-       onWillPop:alertExitApp ,
-      child: Scaffold(
-        
-       appBar: AppBar(title: Padding(
-        padding: const EdgeInsets.all(20),
-        child:  Obx(
-              () =>  Text( 'Wellcome ${controller.username}', style: robotoHugeWhite,),  ),),
-         backgroundColor: AppColor.primaryColor,   automaticallyImplyLeading: false,), 
-         
-        body: Obx(
-          () => _pages[_selectedIndex.value],
+  return WillPopScope(
+    onWillPop: alertExitApp,
+    child: Scaffold(
+      appBar: AppBar(
+        title: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Obx(() {
+            if (_selectedIndex.value == 1) {
+              // Check if the selected index is equal to ChildrenList2Screen
+              return Text('History', style: robotoHugeWhite);
+            } else {
+              return Text('Welcome ${controller.username}', style: robotoHugeWhite);
+            }
+          }),
         ),
-        bottomNavigationBar: CurvedNavigationBar(
-          color: AppColor.primaryColor,
-          backgroundColor: AppColor.whiteColor,
-          index: _selectedIndex.value,
-          height: 60.0,
-          items: <Widget>[
-           
-            Icon(Icons.settings, size: 25, color: AppColor.whiteColor,),
-             Icon(Icons.table_rows_rounded, size: 25, color: AppColor.whiteColor,),
-            Icon(Icons.thermostat_sharp, size: 25, color: AppColor.whiteColor,),
-             Icon(Icons.add_alert_rounded,size: 25, color: AppColor.whiteColor,),
-          ],
-          onTap: (index) {
-            _selectedIndex.value = index;
-          },
-        ),
+        backgroundColor: AppColor.primaryColor,
+        automaticallyImplyLeading: false,
       ),
-    );
-  }
+      body: Obx(() => _pages[_selectedIndex.value]),
+      bottomNavigationBar: CurvedNavigationBar(
+        color: AppColor.primaryColor,
+        backgroundColor: AppColor.whiteColor,
+        index: _selectedIndex.value,
+        height: 60.0,
+        items: <Widget>[
+          Icon(Icons.settings, size: 25, color: AppColor.whiteColor),
+          Icon(Icons.table_rows_rounded, size: 25, color: AppColor.whiteColor),
+          Icon(Icons.thermostat_sharp, size: 25, color: AppColor.whiteColor),
+          Icon(Icons.add_alert_rounded, size: 25, color: AppColor.whiteColor),
+        ],
+        onTap: (index) {
+          _selectedIndex.value = index;
+        },
+      ),
+    ),
+  );
+}
 }

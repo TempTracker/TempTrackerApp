@@ -7,7 +7,7 @@ import 'package:temp_tracker/main.dart';
 
 class AlertsController extends GetxController {
   late Timer _timer;
-  final RxInt _timerDurationInMinutes = 20.obs; // Initial duration in minutes
+  final RxInt _timerDurationInMinutes = 20.obs; // Initial duration
  var isLoading = false.obs;
  String? childId;
  String? childIdforTimer;
