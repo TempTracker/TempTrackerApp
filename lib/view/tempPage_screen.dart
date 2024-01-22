@@ -13,7 +13,7 @@ import 'package:temp_tracker/style/fonts.dart';
 import 'package:temp_tracker/style/images.dart';
 
 class TempPageScreen extends GetView<LoginController> {
-  bool isStoringData = false;
+
   
   TemperatureHelper temperatureHelper = TemperatureHelper();
   @override
@@ -36,18 +36,18 @@ class TempPageScreen extends GetView<LoginController> {
           shrinkWrap: true,
           itemCount: ids.length,
           itemBuilder: (context, index) {
+
             var id = ids[index];
             double temperature = double.tryParse(data[id]["temperature"] ?? "0.0") ?? 0.0;
             double age  = double.tryParse(data[id]["age"] ?? "0.0") ?? 0.0;
-
-  double upperLimit = temperatureHelper.getTemperatureLimit(age);
-
+              double upperLimit = temperatureHelper.getTemperatureLimit(age);
                   String temperatureStatus = temperatureHelper.getTemperatureStatus(temperature, upperLimit);
                   String imagePath = temperatureHelper.getTemperatureImagePath(temperature, upperLimit);
+                  
             return Container(
               padding: const EdgeInsets.all(15),
               child: Container(
-                height: MediaQuery.of(context).size.height * 0.18,
+                height: MediaQuery.of(context).size.height * 0.22,
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(15.0),

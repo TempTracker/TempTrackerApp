@@ -37,7 +37,7 @@ Widget build(BuildContext context) {
           child: Obx(() {
             if (_selectedIndex.value == 1) {
               // Check if the selected index is equal to ChildrenList2Screen
-              return Text('History', style: robotoHugeWhite);
+              return Text('Historical Records', style: robotoHugeWhite);
             } else {
               return Text('Welcome ${controller.username}', style: robotoHugeWhite);
             }

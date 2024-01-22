@@ -13,6 +13,8 @@ class HomeController extends GetxController {
    late SharedPreferences _prefs;
 var username = "".obs;
 
+var emailNum = 0.obs;
+
 @override
 void onInit() async {
   super.onInit();
@@ -25,10 +27,6 @@ void onInit() async {
  
 String? uId = Get.arguments;
  @override
-
-
-
- var completedTasksCount = 0.obs;
  
 // Function to store data in Firestore
 Future<void> storeDataInFirestore(String? id, String name, double temperature) async {
@@ -56,6 +54,9 @@ Future<void> storeDataInFirestore(String? id, String name, double temperature) a
     print('Error storing data in Firestore: $e');
   }
 }
+
+
+
 
 Future<void> storeAlertsInFirestore(String? id, String name, double temperature, String uId) async {
   CollectionReference alertsCollection = FirebaseFirestore.instance.collection('Alerts');

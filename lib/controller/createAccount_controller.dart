@@ -41,7 +41,7 @@ class CreateAccountController extends GetxController {
           "email": emailC.text,
           "userId": uid.value,
           "createdAt": DateTime.now().toIso8601String(),
-         
+
         });
 
         Get.back();

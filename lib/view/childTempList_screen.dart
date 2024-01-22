@@ -7,14 +7,15 @@ import 'package:temp_tracker/style/fonts.dart';
 import 'package:temp_tracker/style/images.dart';
 
 class ChildTempListScreen extends GetView<TempController> {
-  const ChildTempListScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var counter = controller.emailsCount.obs;
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          'Temp History',
+          'Historical records',
           style: robotoHugeWhite,
         ),
         backgroundColor: AppColor.primaryColor,
@@ -28,6 +29,7 @@ class ChildTempListScreen extends GetView<TempController> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+          
             Obx(
               () => Text(
                 "Enter the desired date to view ${controller.name}'s past high temperatures:",
@@ -64,8 +66,10 @@ class ChildTempListScreen extends GetView<TempController> {
                     ),
                     const SizedBox(width: 16),
                     ElevatedButton(
-                      onPressed: () {
-                        controller.fetchChildrenTemps();
+                      onPressed: () async{
+                      await  controller.fetchChildrenTemps();
+                       await controller.getEmailsNumFromFirestore();
+                        counter.value = controller.emailsCount; 
                       },
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColor.primaryColor,
@@ -79,6 +83,16 @@ class ChildTempListScreen extends GetView<TempController> {
                 );
               },
             ),
+            const SizedBox(height: 10),
+          Obx(() {
+  return Row(
+    children: [
+      Icon(Icons.email_rounded),
+      Text("Total Emails sent this day ${counter}"),
+    ],
+  );
+}),
+
             const SizedBox(height: 24),
          Obx(() {
              if (controller.childrenTemps.isEmpty) {

@@ -65,7 +65,7 @@ class AppPages {
 
       GetPage(
       name: _Paths.CHILDTEMPLIST,
-      page: () =>  const ChildTempListScreen(),
+      page: () =>   ChildTempListScreen(),
     ),
 
 

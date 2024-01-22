@@ -5,5 +5,5 @@ class Images {
          static const String applogo = 'assets/img/logo.png';
 static const String logo_rm_bg = 'assets/img/logo.png';
 static const logo = 'assets/img/logo.png';
-  
+  static const notFound = 'assets/img/not_found.png';
 }

@@ -24,7 +24,6 @@ class UserInfoController extends GetxController {
 
     TextEditingController emailC = TextEditingController();
 
-  TextEditingController passC = TextEditingController();
 
  var isLoading = false.obs;
 
@@ -44,6 +43,8 @@ class UserInfoController extends GetxController {
   _prefs.setString('phone', phoneC.text);
   _prefs.setString('email', emailC.text);
 }
+
+
 Future<void> updateUser() async {
 
     if (nameC.text.isNotEmpty && phoneC.text.isNotEmpty) {
@@ -60,6 +61,7 @@ Future<void> updateUser() async {
         String uid = auth.currentUser!.uid;
 
         await firestore.collection("user").doc(uid).update(data);
+
         CustomToast.successToast("Updated user successfully");
                  isLoading = false.obs;
 _updateUserlocalInfo();
@@ -68,7 +70,7 @@ _updateUserlocalInfo();
         CustomToast.errorToast('Error');
                          isLoading = false.obs;
 
-      } finally {}
+      }
     } else {
       CustomToast.errorToast('You need to fill all fields');
                                isLoading = false.obs;

@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
@@ -9,8 +8,6 @@ class TempController extends GetxController {
   DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
 
     var childID = Get.arguments;
-
-
   var childrenTemps = <Map<String, dynamic>>[].obs;
 
      @override
@@ -18,7 +15,10 @@ class TempController extends GetxController {
     super.onInit();
 fetchChildrenTemps();
 fetchChildrenData() ;
+getEmailsNumFromFirestore();
   }
+
+ var emailsCount = 0.obs;
   var name = ''.obs; 
   Rx<DateTime> selectedDate = DateTime.now().obs;
 
@@ -60,7 +60,7 @@ Future<void> fetchChildrenTemps() async {
           childDocument.reference.collection(formattedDate);
 
       // Get all documents within the date subcollection
-      QuerySnapshot dateQuery = await dateCollection.get();
+      QuerySnapshot dateQuery = await dateCollection.orderBy('time', descending: true).get();
 
       // Check if documents are found
       if (dateQuery.docs.isNotEmpty) {
@@ -90,5 +90,36 @@ Future<void> fetchChildrenTemps() async {
   }
 
 }
- 
+
+
+
+Future<int?> getEmailsNumFromFirestore() async {
+  CollectionReference sentByEmailCollection = FirebaseFirestore.instance.collection('SentbyEmail');
+
+  try {
+  String formattedDate =  DateFormat('dd-MM-yyyy').format(selectedDate.value);
+    DocumentReference documentReference = sentByEmailCollection.doc(childID);
+    CollectionReference dateSubcollection = documentReference.collection(formattedDate);
+    DocumentSnapshot documentSnapshot = await dateSubcollection.doc('data').get();
+    if (documentSnapshot.exists) {
+      Map<String, dynamic>? data = documentSnapshot.data() as Map<String, dynamic>?;
+
+      if (data != null && data.containsKey('emailsNum')) {
+       emailsCount.value = data['emailsNum'];
+       update();
+      }else{
+         emailsCount = 0.obs;
+          update();
+      }
+       print("the emails are ${emailsCount.value}");
+    }else{
+         emailsCount = 0.obs;
+      }
+     print("the emails are ${emailsCount.value}");
+    return null;
+  } catch (e) {
+    print('Error retrieving data from Firestore: $e');
+    return null;
+  }
+}
 }

@@ -11,6 +11,7 @@ class ForgetPasswordController extends GetxController {
     Future<void> resetPassword() async{
       if(emailC.text.isNotEmpty){
         try{
+
           auth.sendPasswordResetEmail(email: emailC.text);
           CustomToast.successToast("Please Check your Email to reset password");
 
@@ -18,7 +19,7 @@ class ForgetPasswordController extends GetxController {
           CustomToast.errorToast("something went wrong ");
         }
       }else{
-                  CustomToast.errorToast("Please fill the email field ");
+         CustomToast.errorToast("Please fill the email field ");
 
       }
     }

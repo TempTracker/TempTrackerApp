@@ -38,6 +38,17 @@ class AlertsPageScreen extends GetView<AlertsController> {
                             var id = document.id;
                             var childId = document["id"];
                             controller.childIdforTimer =  document.id;
+String condition =  document["condition"];
+controller.condition =  document["condition"];
+
+String? imageUrl;
+     if (condition == 'High Temperature') {
+      imageUrl = Images.tempgif; 
+    } else if (condition == 'Bracelet Removed') {
+      print('Condition: $condition');
+      imageUrl = Images.notFound; 
+    }
+
                             return Container(
                               padding: const EdgeInsets.all(15),
                               child: Container(
@@ -61,7 +72,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                                       children: [
                                         Padding(
                                           padding: const EdgeInsets.only(top: 30, left: 10),
-                                          child: Image.asset(Images.tempgif),
+                                          child: Image.asset(imageUrl!),
                                         ),
                                         Padding(
                                           padding: const EdgeInsets.only(left: 5),
@@ -71,11 +82,11 @@ class AlertsPageScreen extends GetView<AlertsController> {
                                             children: [
                                               Row(
                                                 children: [
-                                                  const Text(
-                                                    "High Temperature",
+                                                   Text(
+                                                  condition!,
                                                     style: TextStyle(
                                                       fontSize: 20,
-                                                      color: Colors.red,
+                                                        color: condition == 'High Temperature' ? Colors.red : Colors.blue,
                                                       fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
@@ -88,7 +99,7 @@ class AlertsPageScreen extends GetView<AlertsController> {
                                               ),
                                               Obx(() {
                                                 return Text(
-                                                  "${document["name"]}'s body temperature is now abnormal \n response within ${controller.timerDurationInMinutes.value} seconds.",
+                                                condition ==  'High Temperature' ? "${document["name"]}'s body temperature is now abnormal \n response within ${controller.timerDurationInMinutes.value} seconds." : "${document["name"]}'s bracelet has been removed \n response within ${controller.timerDurationInMinutes.value} seconds.",
                                                   style: robotoMedium,
                                                 );
                                               }),
@@ -108,18 +119,12 @@ class AlertsPageScreen extends GetView<AlertsController> {
                                         style: ElevatedButton.styleFrom(
                                           backgroundColor: AppColor.primaryColor,
                                         ),
-                                        child: Obx(
-                                          () {
-                                            return controller.isLoading.value
-                                                ? const CircularProgressIndicator(
-                                              color: Colors.white,
-                                            )
-                                                : Text(
+                                        child:Text(
                                               'Respond',
                                               style: robotoMediumWhite,
-                                            );
-                                          },
                                         ),
+                                          
+                                        
                                       ),
                                     ),
                                   ],

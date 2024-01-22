@@ -1,8 +1,8 @@
 import 'dart:async';
+
 import 'dart:io';
 import 'dart:ui';
 
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/material.dart';
@@ -24,20 +24,16 @@ final FlutterLocalNotificationsPlugin flutterLocalPlugin =FlutterLocalNotificati
 const AndroidNotificationChannel notificationChannel=AndroidNotificationChannel(
   'temperature_alerts',
     "Warning",
-    
   importance: Importance.max,
   showBadge: true
-
 );
 
 void main() async {
 
   WidgetsFlutterBinding.ensureInitialized();
   await SharedPreferences.getInstance();
- //await initializeFirebase();
-   //  Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
- Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+ //Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
  await initservice();
   await di.init();
 
@@ -49,9 +45,12 @@ void main() async {
 
 
 }
+
+//تم استخدام دوال من هذه الكلاسات
 AlertsController alertsController = AlertsController();
 HomeController homeController =  HomeController();
 TemperatureHelper temperatureHelper = TemperatureHelper();
+
 String? name;
 String? temperature;
 double? temperatureDouble;
@@ -62,9 +61,11 @@ String? age;
 double? ageDouble;
 String? alertWhen;
 double? alertWhenDouble;
+int? emailsNum;
 
-
+// دالة تشغيل التطبيق في الخلفية
 Future<void> initservice()async{
+  //تشغيل الفايربيز
   Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   var service=FlutterBackgroundService();
@@ -94,10 +95,13 @@ Future<void> initservice()async{
   service.startService();
 }
 
-//onstart method
+
+
+
+//الدالة التي تحتوي على جميع العمليات التي تعمل في الخلفية
 @pragma("vm:entry-point")
-void onStart(ServiceInstance service){
-    Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
+void onStart(ServiceInstance service) async{
+   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
   DartPluginRegistrant.ensureInitialized();
 
@@ -113,8 +117,77 @@ void onStart(ServiceInstance service){
     service.stopSelf();
   });
 
-  //display notification as service
-  Timer.periodic(Duration(seconds: 3), (timer) async {
+// الدالة المسؤوله عن الاستعلام عن عدد الايميلات التي تم رفعها من قبل الهاردوير 
+DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('Children');
+
+int? previousEmailsNum; // Variable to store the previous value of emailsNum
+
+databaseReference.onValue.listen((event) {
+  DataSnapshot snapshot = event.snapshot;
+
+  if (snapshot.value != null) {
+    Map<dynamic, dynamic> childrenData = snapshot.value as Map<dynamic, dynamic>;
+
+    childrenData.forEach((childKey, child) {
+      int currentEmailsNum = child['emailsNum'] ?? 0; // Default to 0 if emailsNum is not present
+
+      if (currentEmailsNum != previousEmailsNum) {
+        // The emailsNum field has changed
+        print('emailsNum changed for $name: $previousEmailsNum -> $currentEmailsNum');
+
+   alertsController.updateDataInFirestore(childId, currentEmailsNum);
+        // Update the previous value
+        previousEmailsNum = currentEmailsNum;
+      }
+    });
+  } else {
+    print('No data available for children.');
+  }
+});
+
+
+
+
+
+
+// دالة تعمل كل ثانية لفحص درجة حرارة الطفل اذا كانت اقل من 30 يعني ان الاسوارة تمت ازالتها 
+Timer.periodic(Duration(seconds: 1), (timer) async {
+
+String? temperatureForBracelet;
+DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('Children');
+    DatabaseEvent event = await databaseReference.once();
+  DataSnapshot snapshot = event.snapshot;
+  if (snapshot.value != null) {
+    Map<dynamic, dynamic> childrenData = snapshot.value as Map<dynamic, dynamic>;
+
+    childrenData.forEach((childKey, child) {
+      name = child['name'];
+  temperatureForBracelet = child['temperature'];
+    });
+  } else {
+    print('No data available for children.');
+  }
+ double temperatureDoubleForBracelet = double.tryParse(temperatureForBracelet ?? "0.0") ?? 0.0;
+
+if (temperatureDoubleForBracelet! < 30 && temperatureDoubleForBracelet != 0.0){
+
+  // ارسال الاشعار
+flutterLocalPlugin.show(
+        90,
+        "Bracelet Removal Warning",
+         "$name's bracelet has been removed. Please check on them!",
+        NotificationDetails(android:AndroidNotificationDetails('temperature_alerts',"Warning",icon: "logo")        )
+        
+        );
+// تخزين حالة ضياع الساعة
+     alertsController.storeBraceletAlertsInFirestore(childId!, name!, uId!);
+}
+});
+
+
+
+// الدالة التي تستعلم عن درجة الحرارة كل 20 ثانية وفحص اذا تعدت درجة الحرارة التي وضعتها الام او تعدت المعيار العالمي 
+  Timer.periodic(Duration(seconds: 20), (timer) async {
    await fetchChildrenData();
 
     temperatureDouble = double.tryParse(temperature ?? "0.0") ?? 0.0;
@@ -122,8 +195,8 @@ void onStart(ServiceInstance service){
     alertWhenDouble =  double.tryParse(alertWhen?? "0.0") ?? 0.0;
     double upperLimit = temperatureHelper.getTemperatureLimit(ageDouble!);
 // the responded field wil be changed to 0 if the sms is sent by HW
-// if it was responded by the user then a function here is going to change the value into 0 after 15 second
-    if (temperatureDouble!  >= alertWhenDouble! && isResponded! == 0) {
+
+    if (temperatureDouble!  >= alertWhenDouble! && isResponded! == 0 && alertWhenDouble != 0.0 ) {
 
   homeController.storeAlertsInFirestore(childId!, name!, temperatureDouble!, uId!);
   homeController.changeTime(childId!);
@@ -135,11 +208,12 @@ void onStart(ServiceInstance service){
         NotificationDetails(android:AndroidNotificationDetails('temperature_alerts',"Warning",icon: "logo")        )
         
         );
-} else if (temperatureDouble!  >= upperLimit! && isResponded! == 0){
+} else if (temperatureDouble!  >= upperLimit! && isResponded! == 0 && alertWhenDouble != 0.0 ){
 
 homeController.storeDataInFirestore(childId!, name!, temperatureDouble!);
 homeController.storeAlertsInFirestore(childId!, name!, temperatureDouble!, uId!);
 homeController.changeTime(childId!);
+
     flutterLocalPlugin.show(
         90,
         "Warning",
@@ -162,15 +236,14 @@ FirebaseDatabase.instance
     .child(childId!)
           .update({"responded": 0});
 }
+ else if ( alertWhenDouble == 0 && isResponded == 1){
+FirebaseDatabase.instance
+          .reference()
+          .child("Children")
+    .child(childId!)
+          .update({"responded": 0});
+}
 
-// else if (temperatureDouble! < upperLimit && isResponded == 2){
-// FirebaseDatabase.instance
-//           .reference()
-//           .child("Children")
-//     .child(childId!)
-//           .update({"responded": 0});
-// }
-    
   });
   print("Background service ${DateTime.now()}") ;
 
@@ -186,6 +259,8 @@ Future<bool> iosBackground(ServiceInstance service)async{
   return true;
 }
 
+
+// دالة الاستعلام التي تم استخدامها في الدالة التي تعمل كل 20 ثانية 
 Future<void> fetchChildrenData() async {
   DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('Children');
   
@@ -210,7 +285,8 @@ Future<void> fetchChildrenData() async {
   age = child['age'];
   uId = child['uId'];
  alertWhen  = child['alertWhen'];
-
+ emailsNum = child['emailsNum'];
+  
       // Do something with the data, such as storing it in a list or printing it
       print('Child: $name, Temperature: $temperature, ID: $childId, Responded: $isResponded, Age: $age, UID: $uId');
     });
@@ -220,6 +296,8 @@ Future<void> fetchChildrenData() async {
     print('No data available for children.');
   }
 }
+
+
 
 
 class MyApp extends StatelessWidget {
