@@ -194,21 +194,10 @@ flutterLocalPlugin.show(
     ageDouble = double.tryParse(age ?? "0.0") ?? 0.0;
     alertWhenDouble =  double.tryParse(alertWhen?? "0.0") ?? 0.0;
     double upperLimit = temperatureHelper.getTemperatureLimit(ageDouble!);
-// the responded field wil be changed to 0 if the sms is sent by HW
+    
+// the responded field wil be changed to 0 if the email is sent by HW
 
-    if (temperatureDouble!  >= alertWhenDouble! && isResponded! == 0 && alertWhenDouble != 0.0 ) {
-
-  homeController.storeAlertsInFirestore(childId!, name!, temperatureDouble!, uId!);
-  homeController.changeTime(childId!);
-
-    flutterLocalPlugin.show(
-        90,
-        "Warning",
-        "High temperature detected for $name, Current temperature: ${temperatureDouble}°C' !!",
-        NotificationDetails(android:AndroidNotificationDetails('temperature_alerts',"Warning",icon: "logo")        )
-        
-        );
-} else if (temperatureDouble!  >= upperLimit! && isResponded! == 0 && alertWhenDouble != 0.0 ){
+   if (temperatureDouble!  >= upperLimit && isResponded! == 0 && alertWhenDouble != 0.0 ){
 
 homeController.storeDataInFirestore(childId!, name!, temperatureDouble!);
 homeController.storeAlertsInFirestore(childId!, name!, temperatureDouble!, uId!);
@@ -221,7 +210,19 @@ homeController.changeTime(childId!);
         NotificationDetails(android:AndroidNotificationDetails('temperature_alerts',"Warning",icon: "logo")        )
         
         );
-}
+} else if (temperatureDouble!  >= alertWhenDouble! && isResponded! == 0 && alertWhenDouble != 0.0 ) {
+
+  homeController.storeAlertsInFirestore(childId!, name!, temperatureDouble!, uId!);
+  homeController.changeTime(childId!);
+
+    flutterLocalPlugin.show(
+        90,
+        "Warning",
+        "High temperature detected for $name, Current temperature: ${temperatureDouble}°C' !!",
+        NotificationDetails(android:AndroidNotificationDetails('temperature_alerts',"Warning",icon: "logo")        )
+        
+        );
+} 
  else if (temperatureDouble! < upperLimit! && isResponded == 1){
 FirebaseDatabase.instance
           .reference()

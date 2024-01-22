@@ -26,9 +26,9 @@ void onInit() async {
 
  
 String? uId = Get.arguments;
- @override
  
 // Function to store data in Firestore
+
 Future<void> storeDataInFirestore(String? id, String name, double temperature) async {
   CollectionReference highTempsCollection = FirebaseFirestore.instance.collection('HighTemps');
 
@@ -57,7 +57,6 @@ Future<void> storeDataInFirestore(String? id, String name, double temperature) a
 
 
 
-
 Future<void> storeAlertsInFirestore(String? id, String name, double temperature, String uId) async {
   CollectionReference alertsCollection = FirebaseFirestore.instance.collection('Alerts');
 
@@ -73,7 +72,7 @@ Future<void> storeAlertsInFirestore(String? id, String name, double temperature,
       'uId':uId
     });
 
-    print('Data stored successfully in Firestore');
+    print('Alert stored successfully in Firestore');
   } catch (e) {
     print('Error storing data in Firestore: $e');
   }
