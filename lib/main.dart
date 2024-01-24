@@ -190,7 +190,7 @@ flutterLocalPlugin.show(
 
 
 // الدالة التي تستعلم عن درجة الحرارة كل 20 ثانية وفحص اذا تعدت درجة الحرارة التي وضعتها الام او تعدت المعيار العالمي 
-  Timer.periodic(Duration(seconds: 20), (timer) async {
+  Timer.periodic(Duration(minutes: 5), (timer) async {
    await fetchChildrenData();
 
     temperatureDouble = double.tryParse(temperature ?? "0.0") ?? 0.0;
