@@ -8,7 +8,7 @@ import 'package:temp_tracker/controller/createAccount_controller.dart';
 import 'package:temp_tracker/controller/forgetPassword_controller.dart';
 import 'package:temp_tracker/controller/home_controller.dart';
 import 'package:temp_tracker/controller/manageChild_controller.dart';
-import 'package:temp_tracker/controller/temp_controller.dart';
+import 'package:temp_tracker/controller/historicalRecord_controller.dart';
 import 'package:temp_tracker/controller/userInfo_controller.dart';
 
 

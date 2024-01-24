@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
-import 'package:temp_tracker/controller/temp_controller.dart';
+import 'package:temp_tracker/controller/historicalRecord_controller.dart';
 import 'package:temp_tracker/style/app_color.dart';
 import 'package:temp_tracker/style/fonts.dart';
 import 'package:temp_tracker/style/images.dart';

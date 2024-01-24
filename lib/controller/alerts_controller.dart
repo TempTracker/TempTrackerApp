@@ -27,7 +27,7 @@ DateTime lastResetDate = DateTime.now();
 
 
   void startTimer() async{
-    _timer = Timer.periodic(const Duration(seconds: 1), (timer ) async {
+    _timer = Timer.periodic(const Duration(minutes: 1), (timer ) async {
       if (_timerDurationInMinutes.value > 0) {
         _timerDurationInMinutes.value--;
       } else {

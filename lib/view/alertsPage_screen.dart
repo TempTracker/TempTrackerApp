@@ -99,7 +99,7 @@ String? imageUrl;
                                               ),
                                               Obx(() {
                                                 return Text(
-                                                condition ==  'High Temperature' ? "${document["name"]}'s body temperature is now abnormal \n response within ${controller.timerDurationInMinutes.value} seconds." : "${document["name"]}'s bracelet has been removed \n response within ${controller.timerDurationInMinutes.value} seconds.",
+                                                condition ==  'High Temperature' ? "${document["name"]}'s body temperature is now abnormal \n response within ${controller.timerDurationInMinutes.value} seconds." : "${document["name"]} is NOT wearing the bracelet \n response within ${controller.timerDurationInMinutes.value} seconds.",
                                                   style: robotoMedium,
                                                 );
                                               }),

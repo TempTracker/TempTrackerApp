@@ -177,8 +177,8 @@ if (temperatureDoubleForBracelet! < 30 && temperatureDoubleForBracelet != 0.0){
   // ارسال الاشعار
 flutterLocalPlugin.show(
         90,
-        "Bracelet Removal Warning",
-         "$name's bracelet has been removed. Please check on them!",
+        "Bracelet NOT Found Warning",
+         "$name's bracelet NOT Found. Please check on them!",
         NotificationDetails(android:AndroidNotificationDetails('temperature_alerts',"Warning",icon: "logo")        )
         
         );
