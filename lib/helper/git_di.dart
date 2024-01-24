@@ -27,7 +27,7 @@ Future init() async {
   Get.lazyPut(() => HomeController(), fenix: true);
   Get.lazyPut(() => ManageChildController(), fenix: true);
   Get.lazyPut(() => AlertsController(), fenix: true);
-  Get.lazyPut(() => TempController(), fenix: true);
+  Get.lazyPut(() => historicalRecordController(), fenix: true);
   Get.lazyPut(() => UserInfoController(), fenix: true);
     Get.lazyPut(() => ChildrenListController(), fenix: true);
     Get.lazyPut(() => AddChildController(), fenix: true);

@@ -4,7 +4,7 @@ import 'package:firebase_database/firebase_database.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-class TempController extends GetxController {
+class historicalRecordController extends GetxController {
   DatabaseReference databaseReference = FirebaseDatabase.instance.reference();
 
     var childID = Get.arguments;

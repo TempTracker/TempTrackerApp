@@ -6,7 +6,7 @@ import 'package:temp_tracker/style/app_color.dart';
 import 'package:temp_tracker/style/fonts.dart';
 import 'package:temp_tracker/style/images.dart';
 
-class ChildTempListScreen extends GetView<TempController> {
+class historicalRecordScreen extends GetView<historicalRecordController> {
 
   @override
   Widget build(BuildContext context) {

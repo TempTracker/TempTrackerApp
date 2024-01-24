@@ -2,7 +2,7 @@
 import 'package:get/get.dart';
 import 'package:temp_tracker/view/addChild_screen.dart';
 import 'package:temp_tracker/view/childInfo_screen.dart';
-import 'package:temp_tracker/view/childTempList_screen.dart';
+import 'package:temp_tracker/view/historicalRecord_screen.dart';
 import 'package:temp_tracker/view/childrenList_screen.dart';
 import 'package:temp_tracker/view/createAccount_screen.dart';
 import 'package:temp_tracker/view/forgetPassword_screen.dart';
@@ -65,7 +65,7 @@ class AppPages {
 
       GetPage(
       name: _Paths.CHILDTEMPLIST,
-      page: () =>   ChildTempListScreen(),
+      page: () =>   historicalRecordScreen(),
     ),
 
 
