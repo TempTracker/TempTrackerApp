@@ -38,21 +38,24 @@ DateTime lastResetDate = DateTime.now();
     bool collectionExists = await alertsCollection.get().then((querySnapshot) => querySnapshot.docs.isNotEmpty);
 
       if (collectionExists) {
-    FirebaseDatabase.instance
-          .reference()
-          .child("Children")
-          .child(childId!)
-          .update({"responded": 2});
-
-          
- if (condition == 'Bracelet Removed') {
+        
+         if (condition == 'Bracelet Removed') {
             FirebaseDatabase.instance
                 .reference()
                 .child("Children")
                 .child(childId!)
                 .update({"braceletRespond": 2});
+
           }
-     
+          else if (condition == 'High Temperature')  {
+            FirebaseDatabase.instance
+          .reference()
+          .child("Children")
+          .child(childId!)
+          .update({"responded": 2});
+
+          }
+
 
  deleteRecord(childIdforTimer);
       }
