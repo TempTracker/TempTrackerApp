@@ -45,6 +45,7 @@ Widget build(BuildContext context) {
         ),
         backgroundColor: AppColor.primaryColor,
         automaticallyImplyLeading: false,
+      
       ),
       body: Obx(() => _pages[_selectedIndex.value]),
       bottomNavigationBar: CurvedNavigationBar(

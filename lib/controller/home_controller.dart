@@ -93,4 +93,45 @@ Future<void> changeTime(String id ) async {
 
 
 
+void setupMidnightTimer() {
+  // Set up a timer to check the device time every minute
+  Timer.periodic(Duration(minutes: 1), (timer) {
+    DateTime now = DateTime.now();
+    // Check if the current time is 11:59:59 PM
+    if (now.hour == 23 && now.minute == 59 && now.second == 59) {
+      // Perform the update operation for all children
+      updateEmailsNumForAllChildren();
+    }
+  });
+}
+
+
+
+Future<void> updateEmailsNumForAllChildren() async {
+  try {
+    DatabaseReference childrenRef = FirebaseDatabase.instance.reference().child("Children");
+
+    // Use await to wait for the result of the once() method
+    DataSnapshot snapshot = await childrenRef.once().then((event) {
+      return event.snapshot;
+    });
+
+    if (snapshot.value != null) {
+      // Explicitly cast the value to Map<dynamic, dynamic>
+      Map<dynamic, dynamic> childrenData = (snapshot.value as Map<dynamic, dynamic>);
+      
+      // Iterate over all children and update emailsNum
+      childrenData.forEach((key, value) {
+        childrenRef.child(key).update({"emailsNum": 0});
+      });
+
+      print("Update operation performed for all children at 11:59:59 PM");
+    } else {
+      print("No children found in the database.");
+    }
+  } catch (error) {
+    print("Error updating emailsNum: $error");
+  }
+}
+
 }

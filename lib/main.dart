@@ -103,6 +103,9 @@ Future<void> initservice()async{
 void onStart(ServiceInstance service) async{
    await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
 
+// دالة تحسب الوقت بحيث انه اذا كانت الساعة 11:59:59 ليلا تقوم بتصفير عدد الايميلات في الفايربيز
+homeController.setupMidnightTimer();
+
   DartPluginRegistrant.ensureInitialized();
 
   service.on("setAsForeground").listen((event) {
@@ -224,11 +227,11 @@ homeController.changeTime(childId!);
         );
 } 
  else if (temperatureDouble! < upperLimit! && isResponded == 1){
-FirebaseDatabase.instance
-          .reference()
-          .child("Children")
-    .child(childId!)
-          .update({"responded": 0});
+  FirebaseDatabase.instance
+            .reference()
+            .child("Children")
+      .child(childId!)
+            .update({"responded": 0});
 }
  else if (temperatureDouble! < alertWhenDouble! && isResponded == 1){
 FirebaseDatabase.instance
