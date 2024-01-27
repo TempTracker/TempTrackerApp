@@ -52,14 +52,14 @@ Future<void> login() async {
       if (e.code == 'user-not-found') {
         CustomToast.errorToast("Account not found");
       } else if (e.code == 'wrong-password') {
-        CustomToast.errorToast("Wrong Password");
+        CustomToast.errorToast("Wrong Email or Password");
       } else {
-        CustomToast.errorToast("${"Error_because".tr}${e.toString()}");
+        CustomToast.errorToast("Wrong Email or Password");
         print('the error $e');
       }
       isLoading.value = false;
     } catch (e) {
-      CustomToast.errorToast("${"Error_because".tr}${e.toString()}");
+        CustomToast.errorToast("Wrong Email or Password");
       print('the error $e');
       isLoading.value = false;
     }
