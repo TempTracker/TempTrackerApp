@@ -38,13 +38,15 @@ class AlertsPageScreen extends GetView<AlertsController> {
                             var id = document.id;
                             var childId = document["id"];
                             controller.childIdforTimer =  document.id;
-String condition =  document["condition"];
+String? condition ;
 controller.condition =  document["condition"];
 
 String? imageUrl;
-     if (condition == 'High Temperature') {
+     if ( document["condition"] == 'High Temperature') {
+      condition = 'High Temperature';
       imageUrl = Images.tempgif; 
-    } else if (condition == 'Bracelet Removed') {
+    } else if ( document["condition"] == 'Bracelet Removed') {
+       condition = 'Bracelet Not Found';
       print('Condition: $condition');
       imageUrl = Images.notFound; 
     }
@@ -86,7 +88,7 @@ String? imageUrl;
                                                   condition!,
                                                     style: TextStyle(
                                                       fontSize: 20,
-                                                        color: condition == 'High Temperature' ? Colors.red : Colors.blue,
+                                                        color:  document["condition"] == 'High Temperature' ? Colors.red : Colors.blue,
                                                       fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
@@ -99,7 +101,7 @@ String? imageUrl;
                                               ),
                                               Obx(() {
                                                 return Text(
-                                                condition ==  'High Temperature' ? "${document["name"]}'s body temperature is now abnormal \n response within ${controller.timerDurationInMinutes.value} seconds." : "${document["name"]} is NOT wearing the bracelet \n response within ${controller.timerDurationInMinutes.value} seconds.",
+                                                 document["condition"] ==  'High Temperature' ? "${document["name"]}'s body temperature is now abnormal \n response within ${controller.timerDurationInMinutes.value} seconds." : "${document["name"]} is NOT wearing the bracelet \n response within ${controller.timerDurationInMinutes.value} seconds.",
                                                   style: robotoMedium,
                                                 );
                                               }),
