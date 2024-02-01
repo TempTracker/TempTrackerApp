@@ -19,14 +19,14 @@ class CreateAccountController extends GetxController {
 
 
   Future<void> createUser() async {
-
+ isLoading = true.obs;
     try {
-            isLoading = true.obs;
+           
 
       UserCredential userCredential =
           await auth.createUserWithEmailAndPassword(
-        email: emailC.text,
-        password: passC.text,
+        email: emailC.text.trim(),
+        password: passC.text.trim(),
       );
   
 
@@ -55,7 +55,7 @@ class CreateAccountController extends GetxController {
 
       if (e.code == 'weak-password') {
         print('The password provided is too weak.');
-                CustomToast.successToast('Your password is too week it should be at least 6 characters');
+                CustomToast.errorToast('Your password is too week it should be at least 6 characters');
 
 
       } else if (e.code == 'email-already-in-use') {
