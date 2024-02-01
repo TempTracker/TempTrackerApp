@@ -163,6 +163,7 @@ DatabaseReference databaseReference = FirebaseDatabase.instance.reference().chil
 
     childrenData.forEach((childKey, child) {
       name = child['name'];
+       childId = child['id'];
   temperatureForBracelet = child['temperature'];
     });
   } else {

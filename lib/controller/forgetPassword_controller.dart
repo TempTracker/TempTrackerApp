@@ -12,7 +12,7 @@ class ForgetPasswordController extends GetxController {
       if(emailC.text.isNotEmpty){
         try{
 
-          auth.sendPasswordResetEmail(email: emailC.text);
+          auth.sendPasswordResetEmail(email: emailC.text.trim());
           CustomToast.successToast("Please Check your Email to reset password");
 
         } catch (e){
