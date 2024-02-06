@@ -187,6 +187,21 @@ flutterLocalPlugin.show(
 // تخزين حالة ضياع الساعة
      alertsController.storeBraceletAlertsInFirestore(thechildId!, name!, userId!);
 }
+
+ if (temperatureDoubleForBracelet! >= 30 && isResponded == 1){
+FirebaseDatabase.instance
+          .reference()
+          .child("Children")
+    .child(childId!)
+          .update({"responded": 0});
+}
+ if (temperatureDoubleForBracelet! >= 30 && isResponded == 2){
+FirebaseDatabase.instance
+          .reference()
+          .child("Children")
+    .child(childId!)
+          .update({"responded": 0});
+}
 });
 
 

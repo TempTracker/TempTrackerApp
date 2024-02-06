@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:temp_tracker/controller/login_controller.dart';
+import 'package:temp_tracker/helper/alertExitApp.dart';
 import 'package:temp_tracker/routes/app_pages.dart';
 import 'package:temp_tracker/style/app_color.dart';
 import 'package:temp_tracker/style/fonts.dart';
@@ -70,7 +71,29 @@ class SettingsScreen  extends  GetView<LoginController> {
         
         ),
         
-         
+            SizedBox(height: MediaQuery.of(context).size.height *0.05,),
+        
+          SizedBox(
+              width: double.infinity,
+        height: size.height * 0.09,
+          child: ElevatedButton.icon(
+            icon: Icon(Icons.logout_outlined, color: Colors.white,),
+          
+          onPressed: ()  async{
+    alertExitApp();
+        
+          },
+           style: ElevatedButton.styleFrom(
+          backgroundColor: AppColor.primaryColor,
+        ),
+        label:
+        
+         Text('Logout'.tr ,style: robotoHugeWhite,)
+          
+          ),
+        
+        ),
+        
         
           ],
         ),

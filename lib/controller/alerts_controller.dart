@@ -123,12 +123,12 @@ void startTimer() async {
   // Iterate through each document
   for (QueryDocumentSnapshot<Map<String, dynamic>> alert in alertsSnapshot.docs) {
     String conditionValue = alert.data()['condition']; // Assuming 'condition' is the field in your document
-    int timerValue = int.parse(alert.data()['timer']);
-
+    int timerValue1 = int.parse(alert.data()['timer']);
+ int timerValue2 = int.parse(alert.data()['timer']);
     if (conditionValue == 'Bracelet Removed') {
-      braceletRemovedTimer.value = timerValue;
+      braceletRemovedTimer.value = timerValue1;
     } else if (conditionValue == 'High Temperature') {
-      highTemperatureTimer.value = timerValue;
+      highTemperatureTimer.value = timerValue2;
     }
   }
 
