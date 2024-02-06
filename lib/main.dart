@@ -152,9 +152,11 @@ databaseReference.onValue.listen((event) {
 
 
 // دالة تعمل كل ثانية لفحص درجة حرارة الطفل اذا كانت اقل من 30 يعني ان الاسوارة تمت ازالتها 
-Timer.periodic(Duration(seconds: 1), (timer) async {
+Timer.periodic(Duration(minutes: 3), (timer) async {
 
 String? temperatureForBracelet;
+String? userId;
+String? thechildId;
 DatabaseReference databaseReference = FirebaseDatabase.instance.reference().child('Children');
     DatabaseEvent event = await databaseReference.once();
   DataSnapshot snapshot = event.snapshot;
@@ -163,8 +165,9 @@ DatabaseReference databaseReference = FirebaseDatabase.instance.reference().chil
 
     childrenData.forEach((childKey, child) {
       name = child['name'];
-       childId = child['id'];
+       thechildId = child['id'];
   temperatureForBracelet = child['temperature'];
+  userId = child['uId'];
     });
   } else {
     print('No data available for children.');
@@ -182,7 +185,7 @@ flutterLocalPlugin.show(
         
         );
 // تخزين حالة ضياع الساعة
-     alertsController.storeBraceletAlertsInFirestore(childId!, name!, uId!);
+     alertsController.storeBraceletAlertsInFirestore(thechildId!, name!, userId!);
 }
 });
 

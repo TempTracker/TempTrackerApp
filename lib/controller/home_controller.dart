@@ -69,7 +69,8 @@ Future<void> storeAlertsInFirestore(String? id, String name, double temperature,
       'temperature': temperature,
       'condition': 'High Temperature',
       'time': formattedTime,
-      'uId':uId
+      'uId':uId,
+       'timer': "3"
     });
 
     print('Alert stored successfully in Firestore');

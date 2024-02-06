@@ -92,7 +92,7 @@ String? imageUrl;
                                                       fontWeight: FontWeight.bold,
                                                     ),
                                                   ),
-                                                  const SizedBox(width: 30),
+                                                  const SizedBox(width: 20),
                                                   Text(
                                                     "${document["time"]}",
                                                     style: robotoBlack,
@@ -101,8 +101,8 @@ String? imageUrl;
                                               ),
                                               Obx(() {
                                                 return Text(
-                                                 document["condition"] ==  'High Temperature' ? "${document["name"]}'s body temperature is now abnormal \n response within ${controller.timerDurationInMinutes.value} minutes." : "${document["name"]} is NOT wearing the bracelet \n response within ${controller.timerDurationInMinutes.value} minutes.",
-                                                  style: robotoMedium,
+                                                 document["condition"] ==  'High Temperature' ? "${document["name"]}'s body temperature is now abnormal \n response within ${controller.timerhighTemperatureInMinutes.value} minutes." : "${document["name"]} is NOT wearing the bracelet \n response within ${controller.timerBraceletRemovedInMinutes.value} minutes.",
+                                                  style: robotoRegular,
                                                 );
                                               }),
                                             ],

@@ -99,7 +99,7 @@ class TempPageScreen extends GetView<LoginController> {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(top: 30, left: 50),
+                        padding: const EdgeInsets.only(top: 30, left: 40),
                         child: Image.asset(imagePath),
                       ),
                     ],
